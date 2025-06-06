@@ -18,6 +18,10 @@ def run_group_analysis(group_id, group_data):
     all_contracts = []
     alerted_contracts = []
 
+    storage_path = "storage"
+    if not os.path.exists(storage_path):
+        os.mkdir(storage_path)
+
     for ticker in tickers:
         print(f"\n[INFO] Analizando {ticker}...")
         option_data = get_option_data_yahoo(ticker, filters)
@@ -31,18 +35,21 @@ def run_group_analysis(group_id, group_data):
             contract["ticker"] = ticker
             all_contracts.append(contract)
 
+            print("[VALIDO]", ticker, f"Strike: {contract['strike']}",
+                  f"Bid: {contract['bid']}",
+                  f"RA: {contract['rentabilidad_anual']:.1f}%",
+                  f"Días: {contract['days_to_expiration']}")
+
             if is_contract_alert_worthy(contract, thresholds):
                 alerted_contracts.append(contract)
 
-    os.makedirs("storage", exist_ok=True)
-
     if all_contracts:
         df = pd.DataFrame(all_contracts)
-        df.to_csv(f"storage/{group_id}_resultados.csv", index=False)
+        df.to_csv(f"{storage_path}/{group_id}_resultados.csv", index=False)
         print(f"[INFO] {len(df)} contratos guardados en CSV")
 
     # Guardar resumen en .txt
-    resumen_path = f"storage/resumen_{group_id}.txt"
+    resumen_path = f"{storage_path}/resumen_{group_id}.txt"
     with open(resumen_path, "w", encoding="utf-8") as f:
         f.write(f"=== Grupo: {group_id} ===\n")
         f.write(f"Descripción: {description}\n")
