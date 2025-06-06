@@ -5,6 +5,7 @@ import pandas as pd
 from core.data_loader import get_option_data_yahoo
 from core.volatility import calculate_volatility_metrics
 from notifications.discord import send_discord_notification
+from datetime import datetime
 
 
 def run_group_analysis(group_id, group_data):
@@ -15,7 +16,7 @@ def run_group_analysis(group_id, group_data):
     thresholds = group_data.get("alert_thresholds", {})
 
     all_contracts = []
-    notified_tickers = []
+    alerted_contracts = []
 
     for ticker in tickers:
         print(f"\n[INFO] Analizando {ticker}...")
@@ -31,17 +32,27 @@ def run_group_analysis(group_id, group_data):
             all_contracts.append(contract)
 
             if is_contract_alert_worthy(contract, thresholds):
-                notified_tickers.append(ticker)
+                alerted_contracts.append(contract)
+
+    os.makedirs("storage", exist_ok=True)
 
     if all_contracts:
         df = pd.DataFrame(all_contracts)
-        os.makedirs("storage", exist_ok=True)
         df.to_csv(f"storage/{group_id}_resultados.csv", index=False)
         print(f"[INFO] {len(df)} contratos guardados en CSV")
 
-    if thresholds.get("notificar_discord") and notified_tickers:
-        send_discord_notification(notified_tickers, webhook, description)
+    # Guardar resumen en .txt
+    resumen_path = f"storage/resumen_{group_id}.txt"
+    with open(resumen_path, "w", encoding="utf-8") as f:
+        f.write(f"=== Grupo: {group_id} ===\n")
+        f.write(f"Descripción: {description}\n")
+        f.write(f"Tickers analizados: {', '.join(tickers)}\n")
+        f.write(f"Contratos válidos encontrados: {len(all_contracts)}\n")
+        f.write(f"Contratos que cumplen umbrales de alerta: {len(alerted_contracts)}\n")
+        f.write(f"Última ejecución: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC\n")
 
+    if thresholds.get("notificar_discord") and alerted_contracts:
+        send_discord_notification(alerted_contracts, webhook, description)
 
 
 def is_contract_valid(contract, filters):
@@ -66,4 +77,3 @@ def is_contract_alert_worthy(contract, thresholds):
         contract["volume"] >= thresholds.get("volumen", 999) and
         contract["open_interest"] >= thresholds.get("open_interest", 999)
     )
-
