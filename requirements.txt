@@ -1,1 +1,8 @@
+# requirements.txt
+yfinance
+pandas
+numpy
+requests
+tabulate
+pyyaml
 
