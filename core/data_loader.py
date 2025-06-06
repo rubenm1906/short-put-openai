@@ -2,6 +2,7 @@
 
 import yfinance as yf
 from datetime import datetime
+from core.volatility import calculate_volatility_metrics
 
 
 def get_option_data_yahoo(ticker, config):
@@ -12,6 +13,8 @@ def get_option_data_yahoo(ticker, config):
 
         if not expirations or current_price <= 0:
             return []
+
+        hv = calculate_volatility_metrics(ticker)
 
         all_contracts = []
 
@@ -52,7 +55,8 @@ def get_option_data_yahoo(ticker, config):
                     "rentabilidad_anual": rentabilidad_anual,
                     "break_even": break_even,
                     "percent_diff": percent_diff,
-                    "underlying_price": current_price
+                    "underlying_price": current_price,
+                    "historical_volatility": hv
                 }
                 all_contracts.append(contract)
 
@@ -61,4 +65,3 @@ def get_option_data_yahoo(ticker, config):
     except Exception as e:
         print(f"[ERROR] Error procesando {ticker}: {e}")
         return []
-
