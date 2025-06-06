@@ -8,6 +8,8 @@ shortlist_ruben:
     - AMZN
     - ASML
     - EPAM
+    - GLOB
+    - NVDA
   filters:
     min_rentabilidad_anual: 45
     min_volatilidad_implícita: 35
@@ -21,7 +23,7 @@ shortlist_ruben:
     rentabilidad_anual: 50
     margen_seguridad: 8
     bid: 1.00
-    precio_activo: 150
+    precio_activo: 250
     volumen: 100
     open_interest: 500
     notificar_discord: true
