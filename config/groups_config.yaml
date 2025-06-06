@@ -4,12 +4,16 @@ shortlist_ruben:
   description: "Mi short list personal"
   webhook: "https://discord.com/api/webhooks/1380659273494691840/O0n-99abTfYqaK31q0fXxBz0--JEN2LkUlzltBFyiHgZ2RM4fIUjochlHkbVMALeOZpG"
   tickers:
-    - AAPL
-    - AMZN
-    - ASML
-    - EPAM
-    - GLOB
-    - NVDA
+  - AAPL
+  - AMZN
+  - ASML
+  - AMD
+  - INTC
+  - TSLA
+  - PYPL
+  - PLTR
+  - SNAP
+  - SOFI
   filters:
     min_rentabilidad_anual: 45
     min_volatilidad_implícita: 35
