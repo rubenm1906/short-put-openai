@@ -1,0 +1,40 @@
+# .github/workflows/run-daily.yml
+
+name: Run Short Put Screener Daily and On Demand
+
+on:
+  schedule:
+    - cron: '30 13 * * *'  # 15:30 CET (13:30 UTC)
+    - cron: '0 16 * * *'   # 18:00 CET (16:00 UTC)
+    - cron: '0 19 * * *'   # 21:00 CET (19:00 UTC)
+  workflow_dispatch:       # permite ejecución manual
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Ejecutar el screener
+        run: |
+          python main.py
+
+      - name: Subir resultados al repositorio
+        if: success()
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add storage/*.csv || echo "Nada que agregar"
+          git commit -m "Resultados automáticos" || echo "Nada que commitear"
+          git push || echo "Nada que pushear"
