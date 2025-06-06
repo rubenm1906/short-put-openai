@@ -6,22 +6,21 @@ Este proyecto permite analizar oportunidades para vender opciones PUT (short put
 
 ## 🚀 Características
 
-* Análisis automático de puts OTM
-* Rentabilidad anual compuesta
-* Filtros configurables por grupo
-* Margen de seguridad, IV, HV y volumen
-* Notificación a Discord solo si se cumplen condiciones estrictas
-* Multiusuario/multigrupo por configuración YAML
+- Análisis automático de puts OTM
+- Rentabilidad anual compuesta
+- Filtros configurables por grupo
+- Margen de seguridad, IV, HV (volatilidad histórica) y volumen
+- Notificación a Discord solo si se cumplen condiciones estrictas
+- Multiusuario/multigrupo por configuración YAML
 
 ---
 
 ## 📦 Requisitos
 
-* Python 3.9+
-* `yfinance`, `numpy`, `pandas`, `requests`, `tabulate`, `pyyaml`
+- Python 3.9+
+- `yfinance`, `numpy`, `pandas`, `requests`, `tabulate`, `pyyaml`
 
 Instalar dependencias:
-
 ```bash
 pip install -r requirements.txt
 ```
@@ -86,19 +85,32 @@ shortlist_ruben:
 ---
 
 ## 📤 Resultados
+- `mejores_contratos.csv`: contratos destacados
+- `resultados.txt`: resumen del análisis
+- `Mejores_Contratos.txt`: contratos notificados
+- Cada contrato incluye ahora la **volatilidad histórica (HV)** además de la IV
 
-* `mejores_contratos.csv`: contratos destacados
-* `resultados.txt`: resumen del análisis
-* `Mejores_Contratos.txt`: contratos notificados
+---
+
+## 📈 Uso de Volatilidad Histórica (HV)
+
+Cada contrato analizado ahora contiene un campo `historical_volatility`. Esto permite:
+
+- Comparar IV vs HV
+- Filtrar opciones donde **IV sea significativamente mayor que HV** (buena señal para vender puts)
+
+Ejemplo de integración futura:
+```python
+if contract["implied_volatility"] > contract["historical_volatility"] + 10:
+    # buena oportunidad
+```
 
 ---
 
 ## 🧠 Autor
-
 Rubén Marín
 
 ---
 
 ## 📝 Licencia
-
 MIT (o personalizable)
