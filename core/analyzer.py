@@ -19,8 +19,10 @@ def run_group_analysis(group_id, group_data):
     alerted_contracts = []
 
     storage_path = "storage"
+    if os.path.exists(storage_path) and not os.path.isdir(storage_path):
+        os.remove(storage_path)
     if not os.path.exists(storage_path):
-        os.mkdir(storage_path)
+        os.makedirs(storage_path)
 
     for ticker in tickers:
         print(f"\n[INFO] Analizando {ticker}...")
@@ -57,6 +59,8 @@ def run_group_analysis(group_id, group_data):
         f.write(f"Contratos válidos encontrados: {len(all_contracts)}\n")
         f.write(f"Contratos que cumplen umbrales de alerta: {len(alerted_contracts)}\n")
         f.write(f"Última ejecución: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC\n")
+
+    print(f"[INFO] Total válidos: {len(all_contracts)} | Total alertas: {len(alerted_contracts)}")
 
     if thresholds.get("notificar_discord") and alerted_contracts:
         send_discord_notification(alerted_contracts, webhook, description)
