@@ -1,4 +1,4 @@
-# notifications/discord.py
+# notifications/discord.py (con logging explícito por ticker)
 
 import requests
 from collections import defaultdict
@@ -8,7 +8,7 @@ def send_discord_notification(contratos, webhook_url, group_description, top_n_p
         print("[ERROR] Webhook no configurado correctamente.")
         return
 
-    # Agrupar por ticker y ordenar top-N por score
+    print(f"[DEBUG] Preparando notificación para grupo: {group_description}")
     por_ticker = defaultdict(list)
     for c in contratos:
         por_ticker[c["ticker"]].append(c)
@@ -18,6 +18,11 @@ def send_discord_notification(contratos, webhook_url, group_description, top_n_p
 
     for ticker in sorted(por_ticker.keys()):
         contratos_ticker = sorted(por_ticker[ticker], key=lambda x: x.get("score", 0), reverse=True)[:top_n_per_ticker]
+
+        print(f"[DEBUG] Top {top_n_per_ticker} contratos para {ticker}:")
+        for c in contratos_ticker:
+            print(f"[DEBUG]  - Strike {c['strike']}, Score: {c['score']}")
+
         bloque = ""
         for c in contratos_ticker:
             fila = (
@@ -41,7 +46,6 @@ def send_discord_notification(contratos, webhook_url, group_description, top_n_p
     if mensaje_actual:
         mensajes.append(mensaje_actual)
 
-    # Enviar todos los bloques
     for msg in mensajes:
         response = requests.post(webhook_url, json={"content": msg})
         if response.status_code != 204:
