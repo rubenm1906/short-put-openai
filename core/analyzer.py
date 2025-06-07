@@ -1,4 +1,4 @@
-# core/analyzer.py (con exportación de alertados)
+# core/analyzer.py (con ruta absoluta de los CSV)
 
 import os
 import pandas as pd
@@ -51,13 +51,17 @@ def run_group_analysis(group_id, group_data):
 
     if all_contracts:
         df = pd.DataFrame(all_contracts)
-        df.to_csv(f"{storage_path}/{group_id}_resultados.csv", index=False)
+        csv_path = f"{storage_path}/{group_id}_resultados.csv"
+        df.to_csv(csv_path, index=False)
         print(f"[INFO] {len(df)} contratos guardados en CSV")
+        print(f"[DEBUG] Archivo generado: {os.path.abspath(csv_path)}")
 
     if alerted_contracts:
         df_alerts = pd.DataFrame(alerted_contracts)
-        df_alerts.to_csv(f"{storage_path}/alertados_{group_id}.csv", index=False)
+        alert_csv_path = f"{storage_path}/alertados_{group_id}.csv"
+        df_alerts.to_csv(alert_csv_path, index=False)
         print(f"[INFO] {len(df_alerts)} alertas guardadas en alertados_{group_id}.csv")
+        print(f"[DEBUG] Archivo generado: {os.path.abspath(alert_csv_path)}")
 
     resumen_path = f"{storage_path}/resumen_{group_id}.txt"
     with open(resumen_path, "w", encoding="utf-8") as f:
