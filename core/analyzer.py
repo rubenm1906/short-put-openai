@@ -1,4 +1,4 @@
-# core/analyzer.py (con ruta absoluta de los CSV)
+# core/analyzer.py (actualizado para guardar solo contratos notificados en Discord)
 
 import os
 import pandas as pd
@@ -34,7 +34,6 @@ def run_group_analysis(group_id, group_data):
         print(f"[INFO] {len(option_data)} contratos recibidos para {ticker}")
         for contract in option_data:
             if not is_contract_valid(contract, filters):
-                print(f"[DEBUG] ✖️ Rechazado por filtros: {contract}")
                 continue
             contract["ticker"] = ticker
             all_contracts.append(contract)
@@ -47,21 +46,12 @@ def run_group_analysis(group_id, group_data):
             if is_contract_alert_worthy(contract, thresholds):
                 contract["score"] = calculate_contract_score(contract)
                 alerted_contracts.append(contract)
-                print("[ALERTA DETECTADA]", ticker, f"Score: {contract['score']}")
 
     if all_contracts:
         df = pd.DataFrame(all_contracts)
         csv_path = f"{storage_path}/{group_id}_resultados.csv"
         df.to_csv(csv_path, index=False)
         print(f"[INFO] {len(df)} contratos guardados en CSV")
-        print(f"[DEBUG] Archivo generado: {os.path.abspath(csv_path)}")
-
-    if alerted_contracts:
-        df_alerts = pd.DataFrame(alerted_contracts)
-        alert_csv_path = f"{storage_path}/alertados_{group_id}.csv"
-        df_alerts.to_csv(alert_csv_path, index=False)
-        print(f"[INFO] {len(df_alerts)} alertas guardadas en alertados_{group_id}.csv")
-        print(f"[DEBUG] Archivo generado: {os.path.abspath(alert_csv_path)}")
 
     resumen_path = f"{storage_path}/resumen_{group_id}.txt"
     with open(resumen_path, "w", encoding="utf-8") as f:
@@ -80,7 +70,11 @@ def run_group_analysis(group_id, group_data):
     print(f"[INFO] Total válidos: {len(all_contracts)} | Total alertas: {len(alerted_contracts)}")
 
     if thresholds.get("notificar_discord") and alerted_contracts:
-        send_discord_notification(alerted_contracts, webhook, description)
+        notificados = send_discord_notification(alerted_contracts, webhook, description)
+        if notificados:
+            df_alerts = pd.DataFrame(notificados)
+            df_alerts.to_csv(f"{storage_path}/alertados_{group_id}.csv", index=False)
+            print(f"[INFO] {len(df_alerts)} alertas guardadas en alertados_{group_id}.csv")
 
 def is_contract_valid(contract, filters):
     return (
