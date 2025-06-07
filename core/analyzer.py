@@ -1,4 +1,4 @@
-# core/analyzer.py (con logging extendido)
+# core/analyzer.py (con exportación de alertados)
 
 import os
 import pandas as pd
@@ -53,6 +53,11 @@ def run_group_analysis(group_id, group_data):
         df = pd.DataFrame(all_contracts)
         df.to_csv(f"{storage_path}/{group_id}_resultados.csv", index=False)
         print(f"[INFO] {len(df)} contratos guardados en CSV")
+
+    if alerted_contracts:
+        df_alerts = pd.DataFrame(alerted_contracts)
+        df_alerts.to_csv(f"{storage_path}/alertados_{group_id}.csv", index=False)
+        print(f"[INFO] {len(df_alerts)} alertas guardadas en alertados_{group_id}.csv")
 
     resumen_path = f"{storage_path}/resumen_{group_id}.txt"
     with open(resumen_path, "w", encoding="utf-8") as f:
