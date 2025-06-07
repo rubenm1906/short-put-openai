@@ -27,7 +27,7 @@ shortlist_ruben:
 
 7_Magnificas:
   description: "Las 7 Magnificas"
-  webhook: "https://discord.com/api/webhooks/1380979910662688910/6QQIvL5c6vmQFLy0Tg5cFYP_FF6vGB09UVLPKrsGp1cPi4Kv7xB1Z8gKYL05OpXiJ-St"
+  webhook: "https://discord.com/api/webhooks/1381031584798347385/EH0uxdMz5LdXXgrRWujG8QEGKSjlFgxnv10KPOEpeArN6XkVY9pwsHj-rLaWA1woSkMm"
   tickers:
     - AAPL
     - AMZN
@@ -51,7 +51,7 @@ shortlist_ruben:
     rentabilidad_anual: 50
     margen_seguridad: 8
     bid: 1.00
-    #precio_activo: 250 -> No tiene precio max, ya que es especifico para 7magnificas
+    precio_activo: 250 
     volumen: 100
     open_interest: 500
     notificar_discord: true
