@@ -1,4 +1,4 @@
-# core/analyzer.py (caché + copia por grupo)
+# analyzer_debug_trace.py — imprime detalles exactos de PLTR strike 125
 
 import os
 import copy
@@ -34,44 +34,39 @@ def run_group_analysis_with_cache(group_id, group_data, ticker_cache):
             option_data_raw = get_option_data_yahoo(ticker, filters)
             ticker_cache[ticker] = option_data_raw
 
-        # Copia profunda por grupo
         option_data = [copy.deepcopy(c) for c in option_data_raw]
 
         if not option_data:
             print(f"[WARN] No se encontraron opciones para {ticker}")
             continue
 
-        print(f"[INFO] {len(option_data)} contratos recibidos para {ticker}")
         for contract in option_data:
-            if not is_contract_valid(contract, filters):
-                continue
             contract["ticker"] = ticker
-            all_contracts.append(contract)
 
-            if is_contract_alert_worthy(contract, thresholds):
-                contract["score"] = calculate_contract_score(contract)
-                alerted_contracts.append(contract)
+            # Trazar PLTR Strike 125 si existe
+            if ticker == "PLTR" and contract.get("strike") == 125.0:
+                print(f"[TRACE] Grupo: {group_id} | PLTR 125.0 -> Bid: {contract.get('bid')}, "
+                      f"RA: {contract.get('rentabilidad_anual'):.2f}%, "
+                      f"Días: {contract.get('days_to_expiration')}, "
+                      f"IV: {contract.get('implied_volatility')}, "
+                      f"HV: {contract.get('historical_volatility')}, "
+                      f"Volume: {contract.get('volume')}, OI: {contract.get('open_interest')}, "
+                      f"BreakEven: {contract.get('break_even')}, Precio: {contract.get('underlying_price')}")
+
+            if is_contract_valid(contract, filters):
+                all_contracts.append(contract)
+
+                if is_contract_alert_worthy(contract, thresholds):
+                    contract["score"] = calculate_contract_score(contract)
+                    if ticker == "PLTR" and contract.get("strike") == 125.0:
+                        print(f"[TRACE] Grupo: {group_id} | Score calculado: {contract['score']}")
+                    alerted_contracts.append(contract)
 
     if all_contracts:
         df = pd.DataFrame(all_contracts)
         csv_path = f"{storage_path}/{group_id}_resultados.csv"
         df.to_csv(csv_path, index=False)
         print(f"[INFO] {len(df)} contratos guardados en CSV")
-
-    resumen_path = f"{storage_path}/resumen_{group_id}.txt"
-    with open(resumen_path, "w", encoding="utf-8") as f:
-        f.write(f"=== Grupo: {group_id} ===\n")
-        f.write(f"Descripción: {description}\n")
-        f.write(f"Tickers analizados: {', '.join(tickers)}\n")
-        f.write(f"Contratos válidos encontrados: {len(all_contracts)}\n")
-        f.write(f"Contratos que cumplen umbrales de alerta: {len(alerted_contracts)}\n")
-        f.write(f"Última ejecución: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC\n")
-
-    if len(all_contracts) == 0:
-        print("[INFO] Sin oportunidades detectadas en esta ejecución.")
-        return
-
-    print(f"[INFO] Total válidos: {len(all_contracts)} | Total alertas: {len(alerted_contracts)}")
 
     if thresholds.get("notificar_discord") and alerted_contracts:
         notificados = send_discord_notification(alerted_contracts, webhook, description)
