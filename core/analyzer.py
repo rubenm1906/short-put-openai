@@ -1,4 +1,4 @@
-# analyzer_score_before_filter.py
+# analyzer_final_consistent.py
 
 import os
 import copy
@@ -13,10 +13,9 @@ def run_group_analysis_with_cache(group_id, group_data, ticker_cache):
     webhook = group_data.get("webhook")
     tickers = group_data.get("tickers", [])
     filters = group_data.get("filters", {})
-    thresholds = group_data.get("alert_thresholds", {})
+    notificar_discord = group_data.get("alert_thresholds", {}).get("notificar_discord", True)
 
     all_contracts = []
-    scored_contracts = []
 
     storage_path = "storage"
     if os.path.exists(storage_path) and not os.path.isdir(storage_path):
@@ -53,15 +52,10 @@ def run_group_analysis_with_cache(group_id, group_data, ticker_cache):
         df.to_csv(csv_path, index=False)
         print(f"[INFO] {len(df)} contratos guardados en CSV")
 
-    # Aplicar alerta solo a los contratos ya puntuados
-    alerted_contracts = [
-        c for c in all_contracts if is_contract_alert_worthy(c, thresholds)
-    ]
+    print(f"[INFO] Total válidos: {len(all_contracts)}")
 
-    print(f"[INFO] Total válidos: {len(all_contracts)} | Total alertas: {len(alerted_contracts)}")
-
-    if thresholds.get("notificar_discord") and alerted_contracts:
-        notificados = send_discord_notification(alerted_contracts, webhook, description)
+    if notificar_discord and all_contracts:
+        notificados = send_discord_notification(all_contracts, webhook, description)
         if notificados:
             df_alerts = pd.DataFrame(notificados)
             df_alerts.to_csv(f"{storage_path}/alertados_{group_id}.csv", index=False)
@@ -77,16 +71,6 @@ def is_contract_valid(contract, filters):
         contract["volume"] >= filters.get("min_volume", 0) and
         contract["open_interest"] >= filters.get("min_open_interest", 0) and
         contract["underlying_price"] <= filters.get("max_precio_activo", 1e6)
-    )
-
-def is_contract_alert_worthy(contract, thresholds):
-    return (
-        contract["rentabilidad_anual"] >= thresholds.get("rentabilidad_anual", 999) and
-        contract["percent_diff"] >= thresholds.get("margen_seguridad", 999) and
-        contract["bid"] >= thresholds.get("bid", 999) and
-        contract["underlying_price"] <= thresholds.get("precio_activo", 0) and
-        contract["volume"] >= thresholds.get("volumen", 999) and
-        contract["open_interest"] >= thresholds.get("open_interest", 999)
     )
 
 def calculate_contract_score(c):
