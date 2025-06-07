@@ -1,64 +1,26 @@
-# config/groups_config.yaml
-
 shortlist_ruben:
-  description: "Mi short list personal"
-  webhook: "https://discord.com/api/webhooks/1380659273494691840/O0n-99abTfYqaK31q0fXxBz0--JEN2LkUlzltBFyiHgZ2RM4fIUjochlHkbVMALeOZpG"
+  description: Oportunidades Short Put (Grupo Rubén)
+  webhook: "https://discord.com/api/webhooks/..."
   tickers:
-  - GLOB
-  - EPAM
-  - ASML
-  - NKE
-  - INTC
-  - TSLA
-  - PYPL
-  - NOMD
-  - PLTR
-  
+    - AAPL
+    - INTC
+    - PLTR
+    - SOFI
+    - LCID
   filters:
-    min_rentabilidad_anual: 45
-    min_volatilidad_implícita: 35
-    max_días_vencimiento: 45
-    min_diferencia_porcentual: 5
-    min_bid: 1.00
+    min_rentabilidad_anual: 20
+    min_volatilidad_implícita: 25
+    max_días_vencimiento: 30
+    min_diferencia_porcentual: 1.5
+    min_bid: 0.3
     min_volume: 100
-    min_open_interest: 500
-    max_precio_activo: 150
+    min_open_interest: 200
+    max_precio_activo: 250
   alert_thresholds:
-    rentabilidad_anual: 50
-    margen_seguridad: 8
-    bid: 1.00
-    #precio_activo: 250 -> No tiene precio max, ya que es especifico para 7magnificas
-    volumen: 100
-    open_interest: 500
-    notificar_discord: true
-
-7_Magnificas:
-  description: "Las 7 Magnificas"
-  webhook: "https://discord.com/api/webhooks/1380979910662688910/6QQIvL5c6vmQFLy0Tg5cFYP_FF6vGB09UVLPKrsGp1cPi4Kv7xB1Z8gKYL05OpXiJ-St"
-  tickers:
-  - AAPL
-  - AMZN
-  - GOOGL
-  - MSFT
-  - META
-  - TSLA
-  - NVDA
-  - PLTR
-
-  filters:
-    min_rentabilidad_anual: 45
-    min_volatilidad_implícita: 35
-    max_días_vencimiento: 45
-    min_diferencia_porcentual: 5
-    min_bid: 1.00
-    min_volume: 100
-    min_open_interest: 500
-    max_precio_activo: 150
-  alert_thresholds:
-    rentabilidad_anual: 50
-    margen_seguridad: 8
-    bid: 1.00
-    #precio_activo: 250 -> No tiene precio max, ya que es especifico para 7magnificas
-    volumen: 100
-    open_interest: 500
+    rentabilidad_anual: 35
+    margen_seguridad: 5
+    bid: 0.5
+    precio_activo: 250
+    volumen: 150
+    open_interest: 300
     notificar_discord: true
