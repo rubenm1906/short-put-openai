@@ -2,89 +2,108 @@
 
 import os
 import pandas as pd
-from core.data_loader import get_option_data_yahoo
-from core.volatility import calculate_volatility_metrics
+from core.data_loader import obtener_datos_opciones
+from core.volatility import calcular_rentabilidad_anual, calcular_margen_seguridad
 from notifications.discord import send_discord_notification
-from datetime import datetime
 
+def analizar_grupo(nombre_grupo, config):
+    print(f"\n🚀 Ejecutando análisis para: {nombre_grupo} - {config.get('description', '')}")
+    tickers = config["tickers"]
+    filtros = config["filters"]
+    umbrales_alerta = config.get("alert_thresholds", {})
+    webhook_url = config.get("webhook", "REEMPLAZAR")
 
-def run_group_analysis(group_id, group_data):
-    description = group_data.get("description", group_id)
-    webhook = group_data.get("webhook")
-    tickers = group_data.get("tickers", [])
-    filters = group_data.get("filters", {})
-    thresholds = group_data.get("alert_thresholds", {})
-
-    all_contracts = []
-    alerted_contracts = []
-
-    storage_path = "storage"
-    if os.path.exists(storage_path) and not os.path.isdir(storage_path):
-        os.remove(storage_path)
-    if not os.path.exists(storage_path):
-        os.makedirs(storage_path)
+    contratos_validos = []
 
     for ticker in tickers:
-        print(f"\n[INFO] Analizando {ticker}...")
-        option_data = get_option_data_yahoo(ticker, filters)
-        if not option_data:
-            print(f"[WARN] No se encontraron opciones para {ticker}")
+        print(f"[INFO] Analizando {ticker}...")
+        opciones = obtener_datos_opciones(ticker)
+        if opciones is None:
             continue
 
-        for contract in option_data:
-            if not is_contract_valid(contract, filters):
+        for _, opcion in opciones.iterrows():
+            ra = calcular_rentabilidad_anual(opcion)
+            margen = calcular_margen_seguridad(opcion)
+
+            if not cumple_filtros(opcion, ra, margen, filtros):
                 continue
-            contract["ticker"] = ticker
-            all_contracts.append(contract)
 
-            print("[VALIDO]", ticker, f"Strike: {contract['strike']}",
-                  f"Bid: {contract['bid']}",
-                  f"RA: {contract['rentabilidad_anual']:.1f}%",
-                  f"Días: {contract['days_to_expiration']}")
+            contrato = {
+                "ticker": ticker,
+                "strike": opcion["strike"],
+                "bid": opcion["bid"],
+                "días_vencimiento": opcion["días_vencimiento"],
+                "rentabilidad_anual": ra,
+                "margen_seguridad": margen,
+                "volume": opcion["volume"],
+                "open_interest": opcion["open_interest"]
+            }
 
-            if is_contract_alert_worthy(contract, thresholds):
-                alerted_contracts.append(contract)
+            print(f"[VALIDO] {ticker} Strike: {contrato['strike']} Bid: {contrato['bid']} RA: {ra:.1f}% Días: {contrato['días_vencimiento']}")
+            contratos_validos.append(contrato)
 
-    if all_contracts:
-        df = pd.DataFrame(all_contracts)
-        df.to_csv(f"{storage_path}/{group_id}_resultados.csv", index=False)
-        print(f"[INFO] {len(df)} contratos guardados en CSV")
+    alertas = []
+    for contrato in contratos_validos:
+        if cumple_umbral(contrato, umbrales_alerta):
+            alertas.append(contrato)
+        else:
+            # Logging detallado de por qué fue descartado
+            razones = []
+            if contrato["rentabilidad_anual"] < umbrales_alerta.get("rentabilidad_anual", 0):
+                razones.append(f"RA {contrato['rentabilidad_anual']:.1f}% < {umbrales_alerta['rentabilidad_anual']}%")
+            if contrato.get("margen_seguridad") is not None and contrato["margen_seguridad"] < umbrales_alerta.get("margen_seguridad", 0):
+                razones.append(f"MS {contrato['margen_seguridad']:.1f}% < {umbrales_alerta['margen_seguridad']}%")
+            if contrato["bid"] < umbrales_alerta.get("bid", 0):
+                razones.append(f"Bid {contrato['bid']} < {umbrales_alerta['bid']}")
+            if contrato["volume"] < umbrales_alerta.get("volumen", 0):
+                razones.append(f"Vol {contrato['volume']} < {umbrales_alerta['volumen']}")
+            if contrato["open_interest"] < umbrales_alerta.get("open_interest", 0):
+                razones.append(f"OI {contrato['open_interest']} < {umbrales_alerta['open_interest']}")
+            print(f"[DESCARTADO ALERTA] {contrato['ticker']} Strike {contrato['strike']} - {' | '.join(razones)}")
 
-    # Guardar resumen en .txt
-    resumen_path = f"{storage_path}/resumen_{group_id}.txt"
-    with open(resumen_path, "w", encoding="utf-8") as f:
-        f.write(f"=== Grupo: {group_id} ===\n")
-        f.write(f"Descripción: {description}\n")
-        f.write(f"Tickers analizados: {', '.join(tickers)}\n")
-        f.write(f"Contratos válidos encontrados: {len(all_contracts)}\n")
-        f.write(f"Contratos que cumplen umbrales de alerta: {len(alerted_contracts)}\n")
-        f.write(f"Última ejecución: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC\n")
+    # Guardar resultados
+    guardar_resultados(nombre_grupo, contratos_validos, alertas)
 
-    print(f"[INFO] Total válidos: {len(all_contracts)} | Total alertas: {len(alerted_contracts)}")
+    # Enviar a Discord
+    if umbrales_alerta.get("notificar_discord", False) and alertas:
+        send_discord_notification(alertas, webhook_url, config.get("description", ""))
 
-    if thresholds.get("notificar_discord") and alerted_contracts:
-        send_discord_notification(alerted_contracts, webhook, description)
+    print(f"[INFO] {len(contratos_validos)} contratos guardados en CSV")
+    print(f"[INFO] Total válidos: {len(contratos_validos)} | Total alertas: {len(alertas)}")
 
-
-def is_contract_valid(contract, filters):
+def cumple_filtros(opcion, ra, margen, filtros):
     return (
-        contract["rentabilidad_anual"] >= filters.get("min_rentabilidad_anual", 0) and
-        contract["implied_volatility"] >= filters.get("min_volatilidad_implícita", 0) and
-        contract["days_to_expiration"] <= filters.get("max_días_vencimiento", 999) and
-        contract["percent_diff"] >= filters.get("min_diferencia_porcentual", 0) and
-        contract["bid"] >= filters.get("min_bid", 0) and
-        contract["volume"] >= filters.get("min_volume", 0) and
-        contract["open_interest"] >= filters.get("min_open_interest", 0) and
-        contract["underlying_price"] <= filters.get("max_precio_activo", 1e6)
+        ra >= filtros.get("min_rentabilidad_anual", 0) and
+        opcion["implied_volatility"] * 100 >= filtros.get("min_volatilidad_implícita", 0) and
+        opcion["días_vencimiento"] <= filtros.get("max_días_vencimiento", 1000) and
+        opcion["diferencia_porcentual"] >= filtros.get("min_diferencia_porcentual", 0) and
+        opcion["bid"] >= filtros.get("min_bid", 0) and
+        opcion["volume"] >= filtros.get("min_volume", 0) and
+        opcion["open_interest"] >= filtros.get("min_open_interest", 0) and
+        opcion["precio_actual"] <= filtros.get("max_precio_activo", float("inf"))
     )
 
-
-def is_contract_alert_worthy(contract, thresholds):
+def cumple_umbral(contrato, umbral):
     return (
-        contract["rentabilidad_anual"] >= thresholds.get("rentabilidad_anual", 999) and
-        contract["percent_diff"] >= thresholds.get("margen_seguridad", 999) and
-        contract["bid"] >= thresholds.get("bid", 999) and
-        contract["underlying_price"] <= thresholds.get("precio_activo", 0) and
-        contract["volume"] >= thresholds.get("volumen", 999) and
-        contract["open_interest"] >= thresholds.get("open_interest", 999)
+        contrato["rentabilidad_anual"] >= umbral.get("rentabilidad_anual", 0) and
+        contrato.get("margen_seguridad") is not None and contrato["margen_seguridad"] >= umbral.get("margen_seguridad", 0) and
+        contrato["bid"] >= umbral.get("bid", 0) and
+        contrato["volume"] >= umbral.get("volumen", 0) and
+        contrato["open_interest"] >= umbral.get("open_interest", 0)
     )
+
+def guardar_resultados(nombre_grupo, contratos_validos, alertas):
+    carpeta = "storage"
+    os.makedirs(carpeta, exist_ok=True)
+
+    df_validos = pd.DataFrame(contratos_validos)
+    df_validos.to_csv(f"{carpeta}/{nombre_grupo}_resultados.csv", index=False)
+
+    resumen_path = f"{carpeta}/resumen_{nombre_grupo}.txt"
+    with open(resumen_path, "w") as f:
+        f.write(f"Resumen del grupo {nombre_grupo}\n")
+        f.write(f"Contratos válidos: {len(contratos_validos)}\n")
+        f.write(f"Contratos para alerta: {len(alertas)}\n")
+        for a in alertas:
+            f.write(f"- {a['ticker']} Strike: {a['strike']} RA: {a['rentabilidad_anual']:.1f}% Bid: {a['bid']}\n")
+
