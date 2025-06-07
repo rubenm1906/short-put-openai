@@ -86,7 +86,11 @@ def cumple_umbral(contrato, umbral):
     )
 
 def guardar_resultados(nombre_grupo, contratos_validos, alertas):
-    os.makedirs("storage", exist_ok=True)
+    print("[INFO] Verificando carpeta storage...")
+    try:
+        os.makedirs("storage", exist_ok=True)
+    except FileExistsError:
+        pass
     df_validos = pd.DataFrame(contratos_validos)
     df_validos.to_csv(f"storage/{nombre_grupo}_resultados.csv", index=False)
 
@@ -96,4 +100,3 @@ def guardar_resultados(nombre_grupo, contratos_validos, alertas):
         f.write(f"Contratos para alerta: {len(alertas)}\n")
         for a in alertas:
             f.write(f"- {a['ticker']} Strike: {a['strike']} RA: {a['rentabilidad_anual']:.1f}% Bid: {a['bid']}\n")
-
