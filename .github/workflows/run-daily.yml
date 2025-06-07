@@ -28,7 +28,7 @@ jobs:
         run: python main.py
 
       - name: Subir resultados como artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: resultados-short-put
           path: storage/*.csv
