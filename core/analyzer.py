@@ -86,15 +86,15 @@ def cumple_umbral(contrato, umbral):
     )
 
 def guardar_resultados(nombre_grupo, contratos_validos, alertas):
-    print("[INFO] Verificando carpeta storage...")
-    try:
-        os.makedirs("storage", exist_ok=True)
-    except FileExistsError:
-        pass
-    df_validos = pd.DataFrame(contratos_validos)
-    df_validos.to_csv(f"storage/{nombre_grupo}_resultados.csv", index=False)
+    ruta = "storage"
+    if not os.path.exists(ruta):
+        print("[INFO] Creando carpeta 'storage'...")
+        os.makedirs(ruta)
 
-    with open(f"storage/resumen_{nombre_grupo}.txt", "w") as f:
+    df_validos = pd.DataFrame(contratos_validos)
+    df_validos.to_csv(f"{ruta}/{nombre_grupo}_resultados.csv", index=False)
+
+    with open(f"{ruta}/resumen_{nombre_grupo}.txt", "w") as f:
         f.write(f"Resumen del grupo {nombre_grupo}\n")
         f.write(f"Contratos válidos: {len(contratos_validos)}\n")
         f.write(f"Contratos para alerta: {len(alertas)}\n")
