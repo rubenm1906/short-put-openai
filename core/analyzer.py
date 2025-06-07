@@ -1,4 +1,4 @@
-# core/analyzer.py (actualizado para guardar solo contratos notificados en Discord)
+# core/analyzer.py (versión con soporte de caché)
 
 import os
 import pandas as pd
@@ -7,7 +7,7 @@ from core.volatility import calculate_volatility_metrics
 from notifications.discord import send_discord_notification
 from datetime import datetime
 
-def run_group_analysis(group_id, group_data):
+def run_group_analysis_with_cache(group_id, group_data, ticker_cache):
     description = group_data.get("description", group_id)
     webhook = group_data.get("webhook")
     tickers = group_data.get("tickers", [])
@@ -25,8 +25,14 @@ def run_group_analysis(group_id, group_data):
 
     print(f"[INFO] Iniciando análisis del grupo: {group_id}")
     for ticker in tickers:
-        print(f"[INFO] Descargando opciones para {ticker}...")
-        option_data = get_option_data_yahoo(ticker, filters)
+        if ticker in ticker_cache:
+            option_data = ticker_cache[ticker]
+            print(f"[CACHE] Usando datos cacheados para {ticker}")
+        else:
+            print(f"[INFO] Descargando opciones para {ticker}...")
+            option_data = get_option_data_yahoo(ticker, filters)
+            ticker_cache[ticker] = option_data
+
         if not option_data:
             print(f"[WARN] No se encontraron opciones para {ticker}")
             continue
@@ -37,11 +43,6 @@ def run_group_analysis(group_id, group_data):
                 continue
             contract["ticker"] = ticker
             all_contracts.append(contract)
-
-            print("[VALIDO]", ticker, f"Strike: {contract['strike']}",
-                  f"Bid: {contract['bid']}",
-                  f"RA: {contract['rentabilidad_anual']:.1f}%",
-                  f"Días: {contract['days_to_expiration']}")
 
             if is_contract_alert_worthy(contract, thresholds):
                 contract["score"] = calculate_contract_score(contract)
@@ -61,11 +62,10 @@ def run_group_analysis(group_id, group_data):
         f.write(f"Contratos válidos encontrados: {len(all_contracts)}\n")
         f.write(f"Contratos que cumplen umbrales de alerta: {len(alerted_contracts)}\n")
         f.write(f"Última ejecución: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC\n")
-        if len(all_contracts) == 0:
-            f.write("\nSin oportunidades detectadas en esta ejecución.\n")
 
     if len(all_contracts) == 0:
         print("[INFO] Sin oportunidades detectadas en esta ejecución.")
+        return
 
     print(f"[INFO] Total válidos: {len(all_contracts)} | Total alertas: {len(alerted_contracts)}")
 
