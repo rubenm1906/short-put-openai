@@ -1,5 +1,5 @@
 import yaml
-from core.analyzer import analizar_grupo
+from core.analyzer import run_group_analysis
 
 def load_groups():
     with open("config/groups_config.yaml", "r") as f:
