@@ -1,4 +1,4 @@
-# analyzer_debug_trace.py — imprime detalles exactos de PLTR strike 125
+# analyzer_score_before_filter.py
 
 import os
 import copy
@@ -16,7 +16,7 @@ def run_group_analysis_with_cache(group_id, group_data, ticker_cache):
     thresholds = group_data.get("alert_thresholds", {})
 
     all_contracts = []
-    alerted_contracts = []
+    scored_contracts = []
 
     storage_path = "storage"
     if os.path.exists(storage_path) and not os.path.isdir(storage_path):
@@ -43,30 +43,22 @@ def run_group_analysis_with_cache(group_id, group_data, ticker_cache):
         for contract in option_data:
             contract["ticker"] = ticker
 
-            # Trazar PLTR Strike 125 si existe
-            if ticker == "PLTR" and contract.get("strike") == 125.0:
-                print(f"[TRACE] Grupo: {group_id} | PLTR 125.0 -> Bid: {contract.get('bid')}, "
-                      f"RA: {contract.get('rentabilidad_anual'):.2f}%, "
-                      f"Días: {contract.get('days_to_expiration')}, "
-                      f"IV: {contract.get('implied_volatility')}, "
-                      f"HV: {contract.get('historical_volatility')}, "
-                      f"Volume: {contract.get('volume')}, OI: {contract.get('open_interest')}, "
-                      f"BreakEven: {contract.get('break_even')}, Precio: {contract.get('underlying_price')}")
-
             if is_contract_valid(contract, filters):
+                contract["score"] = calculate_contract_score(contract)
                 all_contracts.append(contract)
-
-                if is_contract_alert_worthy(contract, thresholds):
-                    contract["score"] = calculate_contract_score(contract)
-                    if ticker == "PLTR" and contract.get("strike") == 125.0:
-                        print(f"[TRACE] Grupo: {group_id} | Score calculado: {contract['score']}")
-                    alerted_contracts.append(contract)
 
     if all_contracts:
         df = pd.DataFrame(all_contracts)
         csv_path = f"{storage_path}/{group_id}_resultados.csv"
         df.to_csv(csv_path, index=False)
         print(f"[INFO] {len(df)} contratos guardados en CSV")
+
+    # Aplicar alerta solo a los contratos ya puntuados
+    alerted_contracts = [
+        c for c in all_contracts if is_contract_alert_worthy(c, thresholds)
+    ]
+
+    print(f"[INFO] Total válidos: {len(all_contracts)} | Total alertas: {len(alerted_contracts)}")
 
     if thresholds.get("notificar_discord") and alerted_contracts:
         notificados = send_discord_notification(alerted_contracts, webhook, description)
