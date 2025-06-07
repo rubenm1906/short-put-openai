@@ -1,4 +1,4 @@
-# notifications/discord.py (retorna los contratos notificados)
+# notifications/discord.py (con logging de selección final por ticker)
 
 import requests
 from collections import defaultdict
@@ -18,6 +18,8 @@ def send_discord_notification(contratos, webhook_url, group_description, top_n_p
 
     for ticker in sorted(por_ticker.keys()):
         contratos_ticker = sorted(por_ticker[ticker], key=lambda x: x.get("score", 0), reverse=True)[:top_n_per_ticker]
+        print(f"[DEBUG] Grupo: {group_description} | Ticker: {ticker} | Seleccionados: {[ (c['strike'], c['score']) for c in contratos_ticker ]}")
+
         notificados_finales.extend(contratos_ticker)
 
         bloque = ""
