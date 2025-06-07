@@ -35,7 +35,7 @@ shortlist_ruben:
 7_Magnificas:
   description: "Las 7 Magnificas"
   webhook: "https://discord.com/api/webhooks/1380979910662688910/6QQIvL5c6vmQFLy0Tg5cFYP_FF6vGB09UVLPKrsGp1cPi4Kv7xB1Z8gKYL05OpXiJ-St"
-    tickers:
+  tickers:
   - AAPL
   - AMZN
   - GOOGL
