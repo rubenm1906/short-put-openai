@@ -1,5 +1,3 @@
-# core/volatility.py
-
 import yfinance as yf
 import numpy as np
 import pandas as pd
@@ -21,4 +19,3 @@ def calculate_volatility_metrics(ticker, days=30):
     except Exception as e:
         print(f"[ERROR] Fallo al calcular HV para {ticker}: {e}")
         return None
-
