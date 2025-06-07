@@ -34,7 +34,7 @@ def send_discord_notification(contratos, webhook_url, group_description, top_n_p
 
         if len(mensaje_actual) + len(bloque) > max_chars:
             mensajes.append(mensaje_actual)
-            mensaje_actual = ""
+            mensaje_actual = f"**📢 Oportunidades detectadas en:** *{group_description}*\n"
 
         mensaje_actual += bloque
 
