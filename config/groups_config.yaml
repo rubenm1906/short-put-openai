@@ -1,6 +1,6 @@
 shortlist_ruben:
   description: Oportunidades Short Put (Grupo Rubén)
-  webhook: "https://discord.com/api/webhooks/..."
+  webhook: "https://discord.com/api/webhooks/1380659273494691840/O0n-99abTfYqaK31q0fXxBz0--JEN2LkUlzltBFyiHgZ2RM4fIUjochlHkbVMALeOZpG"
   tickers:
     - AAPL
     - INTC
