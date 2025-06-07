@@ -8,4 +8,5 @@ def load_groups():
 if __name__ == "__main__":
     grupos = load_groups()
     for nombre, config in grupos.items():
-        analizar_grupo(nombre, config)
+        run_group_analysis(nombre, config)
+
