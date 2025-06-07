@@ -1,4 +1,4 @@
-# core/analyzer.py
+# core/analyzer.py (con logging extendido)
 
 import os
 import pandas as pd
@@ -23,15 +23,18 @@ def run_group_analysis(group_id, group_data):
     if not os.path.exists(storage_path):
         os.makedirs(storage_path)
 
+    print(f"[INFO] Iniciando análisis del grupo: {group_id}")
     for ticker in tickers:
-        print(f"\n[INFO] Analizando {ticker}...")
+        print(f"[INFO] Descargando opciones para {ticker}...")
         option_data = get_option_data_yahoo(ticker, filters)
         if not option_data:
             print(f"[WARN] No se encontraron opciones para {ticker}")
             continue
 
+        print(f"[INFO] {len(option_data)} contratos recibidos para {ticker}")
         for contract in option_data:
             if not is_contract_valid(contract, filters):
+                print(f"[DEBUG] ✖️ Rechazado por filtros: {contract}")
                 continue
             contract["ticker"] = ticker
             all_contracts.append(contract)
@@ -42,9 +45,9 @@ def run_group_analysis(group_id, group_data):
                   f"Días: {contract['days_to_expiration']}")
 
             if is_contract_alert_worthy(contract, thresholds):
-                # Calcular score aquí
                 contract["score"] = calculate_contract_score(contract)
                 alerted_contracts.append(contract)
+                print("[ALERTA DETECTADA]", ticker, f"Score: {contract['score']}")
 
     if all_contracts:
         df = pd.DataFrame(all_contracts)
