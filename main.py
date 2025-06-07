@@ -1,5 +1,3 @@
-# main.py
-
 import yaml
 from core.analyzer import analizar_grupo
 
