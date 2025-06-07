@@ -4,7 +4,6 @@ import yfinance as yf
 from datetime import datetime
 from core.volatility import calculate_volatility_metrics
 
-
 def get_option_data_yahoo(ticker, config):
     try:
         stock = yf.Ticker(ticker)
