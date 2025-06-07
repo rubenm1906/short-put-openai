@@ -42,6 +42,8 @@ def run_group_analysis(group_id, group_data):
                   f"Días: {contract['days_to_expiration']}")
 
             if is_contract_alert_worthy(contract, thresholds):
+                # Calcular score aquí
+                contract["score"] = calculate_contract_score(contract)
                 alerted_contracts.append(contract)
 
     if all_contracts:
@@ -89,3 +91,17 @@ def is_contract_alert_worthy(contract, thresholds):
         contract["volume"] >= thresholds.get("volumen", 999) and
         contract["open_interest"] >= thresholds.get("open_interest", 999)
     )
+
+def calculate_contract_score(c):
+    exp_score = max(0, (45 - c["days_to_expiration"]) / 45)
+    liq_score = min((c["volume"] + c["open_interest"]) / 2000, 1)
+    iv_hv_diff = max(c["implied_volatility"] - c["historical_volatility"], 0)
+
+    score = (
+        c["rentabilidad_anual"] * 0.35 +
+        c["percent_diff"] * 0.25 +
+        iv_hv_diff * 0.2 +
+        exp_score * 0.1 +
+        liq_score * 0.1
+    )
+    return round(score, 2)
