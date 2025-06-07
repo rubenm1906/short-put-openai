@@ -28,7 +28,7 @@ def analizar_grupo(nombre_grupo, config):
                 "ticker": ticker,
                 "strike": opcion["strike"],
                 "bid": opcion["bid"],
-                "días_vencimiento": opcion["days_to_expiration"],
+                "days_to_expiration": opcion["days_to_expiration"],
                 "rentabilidad_anual": opcion["rentabilidad_anual"],
                 "margen_seguridad": opcion["percent_diff"],
                 "volume": opcion["volume"],
