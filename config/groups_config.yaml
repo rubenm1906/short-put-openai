@@ -12,6 +12,7 @@ shortlist_ruben:
   - TSLA
   - PYPL
   - NOMD
+  - PLTR
   
   filters:
     min_rentabilidad_anual: 45
@@ -42,6 +43,7 @@ shortlist_ruben:
   - META
   - TSLA
   - NVDA
+  - PLTR
 
   filters:
     min_rentabilidad_anual: 45
