@@ -8,38 +8,41 @@ def send_discord_notification(contratos, webhook_url, group_description, top_n_p
         print("[ERROR] Webhook no configurado correctamente.")
         return
 
-    # Agrupar y filtrar top por ticker
+    # Agrupar por ticker y ordenar top-N por score
     por_ticker = defaultdict(list)
     for c in contratos:
         por_ticker[c["ticker"]].append(c)
 
-    top_contratos = []
-    for ticker, lista in por_ticker.items():
-        ordenados = sorted(lista, key=lambda x: x.get("score", 0), reverse=True)
-        top_contratos.extend(ordenados[:top_n_per_ticker])
+    mensajes = []
+    mensaje_actual = f"**📢 Oportunidades detectadas en:** *{group_description}*\n"
 
-    # Ordenar globalmente
-    top_final = sorted(top_contratos, key=lambda x: x.get("score", 0), reverse=True)
+    for ticker in sorted(por_ticker.keys()):
+        contratos_ticker = sorted(por_ticker[ticker], key=lambda x: x.get("score", 0), reverse=True)[:top_n_per_ticker]
+        bloque = ""
+        for c in contratos_ticker:
+            fila = (
+                f"🟢 {c['ticker']} | "
+                f"Strike: {c['strike']} | "
+                f"Bid: ${c['bid']:.2f} | "
+                f"RA: {c['rentabilidad_anual']:.1f}% | "
+                f"Días: {c['days_to_expiration']} | "
+                f"IV: {c['implied_volatility']:.1f}% | "
+                f"HV: {c.get('historical_volatility', 0):.1f}% | "
+                f"Score: {c.get('score', 0):.1f}\n"
+            )
+            bloque += fila
 
-    # Enviar por bloques
-    mensaje = f"**📢 Oportunidades detectadas en:** *{group_description}*\n"
-    for c in top_final:
-        fila = (
-            f"🟢 {c['ticker']} | "
-            f"Strike: {c['strike']} | "
-            f"Bid: ${c['bid']:.2f} | "
-            f"RA: {c['rentabilidad_anual']:.1f}% | "
-            f"Días: {c['days_to_expiration']} | "
-            f"IV: {c['implied_volatility']:.1f}% | "
-            f"HV: {c.get('historical_volatility', 0):.1f}% | "
-            f"Score: {c.get('score', 0):.1f}\n"
-        )
+        if len(mensaje_actual) + len(bloque) > max_chars:
+            mensajes.append(mensaje_actual)
+            mensaje_actual = ""
 
-        if len(mensaje) + len(fila) > max_chars:
-            requests.post(webhook_url, json={"content": mensaje})
-            mensaje = ""
+        mensaje_actual += bloque
 
-        mensaje += fila
+    if mensaje_actual:
+        mensajes.append(mensaje_actual)
 
-    if mensaje:
-        requests.post(webhook_url, json={"content": mensaje})
+    # Enviar todos los bloques
+    for msg in mensajes:
+        response = requests.post(webhook_url, json={"content": msg})
+        if response.status_code != 204:
+            print(f"[ERROR] Fallo al enviar a Discord: {response.status_code} - {response.text}")
