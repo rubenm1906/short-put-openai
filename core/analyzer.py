@@ -2,7 +2,7 @@
 
 import os
 import pandas as pd
-from core.data_loader import obtener_datos_opciones
+from core.data_loader import get_option_data_yahoo
 from core.volatility import calcular_rentabilidad_anual, calcular_margen_seguridad
 from notifications.discord import send_discord_notification
 
@@ -17,7 +17,7 @@ def analizar_grupo(nombre_grupo, config):
 
     for ticker in tickers:
         print(f"[INFO] Analizando {ticker}...")
-        opciones = obtener_datos_opciones(ticker)
+        opciones = get_option_data_yahoo(ticker, filtros)
         if opciones is None:
             continue
 
