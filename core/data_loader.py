@@ -1,5 +1,3 @@
-# core/data_loader.py
-
 import yfinance as yf
 from datetime import datetime
 from core.volatility import calculate_volatility_metrics
