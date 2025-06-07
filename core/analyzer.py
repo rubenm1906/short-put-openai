@@ -1,6 +1,7 @@
-# core/analyzer.py (versión con soporte de caché)
+# core/analyzer.py (caché + copia por grupo)
 
 import os
+import copy
 import pandas as pd
 from core.data_loader import get_option_data_yahoo
 from core.volatility import calculate_volatility_metrics
@@ -26,12 +27,15 @@ def run_group_analysis_with_cache(group_id, group_data, ticker_cache):
     print(f"[INFO] Iniciando análisis del grupo: {group_id}")
     for ticker in tickers:
         if ticker in ticker_cache:
-            option_data = ticker_cache[ticker]
             print(f"[CACHE] Usando datos cacheados para {ticker}")
+            option_data_raw = ticker_cache[ticker]
         else:
             print(f"[INFO] Descargando opciones para {ticker}...")
-            option_data = get_option_data_yahoo(ticker, filters)
-            ticker_cache[ticker] = option_data
+            option_data_raw = get_option_data_yahoo(ticker, filters)
+            ticker_cache[ticker] = option_data_raw
+
+        # Copia profunda por grupo
+        option_data = [copy.deepcopy(c) for c in option_data_raw]
 
         if not option_data:
             print(f"[WARN] No se encontraron opciones para {ticker}")
