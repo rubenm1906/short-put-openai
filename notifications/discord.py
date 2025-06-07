@@ -1,4 +1,4 @@
-# notifications/discord.py (con logging explícito por ticker)
+# notifications/discord.py (retorna los contratos notificados)
 
 import requests
 from collections import defaultdict
@@ -6,22 +6,19 @@ from collections import defaultdict
 def send_discord_notification(contratos, webhook_url, group_description, top_n_per_ticker=3, max_chars=1800):
     if not webhook_url or webhook_url == "REEMPLAZAR":
         print("[ERROR] Webhook no configurado correctamente.")
-        return
+        return []
 
-    print(f"[DEBUG] Preparando notificación para grupo: {group_description}")
     por_ticker = defaultdict(list)
     for c in contratos:
         por_ticker[c["ticker"]].append(c)
 
     mensajes = []
     mensaje_actual = f"**📢 Oportunidades detectadas en:** *{group_description}*\n"
+    notificados_finales = []
 
     for ticker in sorted(por_ticker.keys()):
         contratos_ticker = sorted(por_ticker[ticker], key=lambda x: x.get("score", 0), reverse=True)[:top_n_per_ticker]
-
-        print(f"[DEBUG] Top {top_n_per_ticker} contratos para {ticker}:")
-        for c in contratos_ticker:
-            print(f"[DEBUG]  - Strike {c['strike']}, Score: {c['score']}")
+        notificados_finales.extend(contratos_ticker)
 
         bloque = ""
         for c in contratos_ticker:
@@ -50,3 +47,5 @@ def send_discord_notification(contratos, webhook_url, group_description, top_n_p
         response = requests.post(webhook_url, json={"content": msg})
         if response.status_code != 204:
             print(f"[ERROR] Fallo al enviar a Discord: {response.status_code} - {response.text}")
+
+    return notificados_finales
