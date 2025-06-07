@@ -35,7 +35,7 @@ def analizar_grupo(nombre_grupo, config):
                 "open_interest": opcion["open_interest"]
             }
 
-            print(f"[VALIDO] {ticker} Strike: {contrato['strike']} Bid: {contrato['bid']} RA: {contrato['rentabilidad_anual']:.1f}% Días: {contrato['días_vencimiento']}")
+            print(f"[VALIDO] {ticker} Strike: {contrato['strike']} Bid: {contrato['bid']} RA: {contrato['rentabilidad_anual']:.1f}% Días: {contrato['days_to_expiration']}")
             contratos_validos.append(contrato)
 
     alertas = []
