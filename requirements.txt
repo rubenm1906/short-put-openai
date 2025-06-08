@@ -5,4 +5,5 @@ numpy
 requests
 tabulate
 pyyaml
-
+gspread
+oauth2client
