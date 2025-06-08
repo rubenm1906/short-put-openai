@@ -18,7 +18,7 @@ shortlist_ruben:
     min_open_interest: 200
     max_precio_activo: 250
   alert_thresholds:
-    rentabilidad_anual: 35
+    rentabilidad_anual: 20
     margen_seguridad: 3
     bid: 0.5
     # precio_activo: 250 Filtro directo en acciones
@@ -48,7 +48,7 @@ shortlist_ruben:
     min_open_interest: 200
     max_precio_activo: 250
   alert_thresholds:
-    rentabilidad_anual: 35
+    rentabilidad_anual: 20
     margen_seguridad: 3
     bid: 0.5
     # precio_activo: 250 Filtro directo en acciones
@@ -75,7 +75,7 @@ shortlist_ruben:
     min_open_interest: 200
     max_precio_activo: 250
   alert_thresholds:
-    rentabilidad_anual: 35
+    rentabilidad_anual: 20
     margen_seguridad: 3
     bid: 0.5
     # precio_activo: 250 Filtro directo en acciones
