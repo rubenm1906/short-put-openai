@@ -1,6 +1,8 @@
 === Grupo: Indices ===
 Descripción: Indices
-Tickers analizados: SPY, QQQ, IWM, DIA, PLTR
-Contratos válidos encontrados: 3
-Contratos que cumplen umbrales de alerta: 3
-Última ejecución: 2025-06-08 17:22:31 UTC
+Tickers analizados: SPY, QQQ, IWM, DIA
+Contratos válidos encontrados: 0
+Contratos que cumplen umbrales de alerta: 0
+Última ejecución: 2025-06-08 17:34:08 UTC
+
+Sin oportunidades detectadas en esta ejecución.
