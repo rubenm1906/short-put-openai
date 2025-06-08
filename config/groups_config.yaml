@@ -1,4 +1,4 @@
-shortlist_ruben:
+Shortlist_ruben:
   description: Oportunidades Short Put 
   webhook: "https://discord.com/api/webhooks/1380659273494691840/O0n-99abTfYqaK31q0fXxBz0--JEN2LkUlzltBFyiHgZ2RM4fIUjochlHkbVMALeOZpG"
   tickers:
@@ -112,7 +112,7 @@ Top 10 Nasdap:
     open_interest: 500
     notificar_discord: true
 
-  Top 10 SP500:
+Top 10 SP500:
   description: SP500 Top 10  
   webhook: "https://discord.com/api/webhooks/1381330484432207892/ZAQOg8B-JvVlEr2Qb7ULPzJjDK_IIeJeTJxhMGBe6yZaNc62mZ4YhzZk-YONuR0cKAAO"
   tickers:
@@ -142,6 +142,64 @@ Top 10 Nasdap:
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
     notificar_discord: true
+
+zacks_rank1:
+  description: "Zacks Rank #1 Strong Buy (<150 USD)"
+  webhook: "https://discord.com/api/webhooks/1381339370757427281/bZH_WqvDY2YEW0_yvvpthcI_I8XkEqOg3-LXPQ1z2ETdTCCKrXfncoA0NOKOCxs3rz2S"  # agrega tu webhook para alertas
+  tickers:
+    - AFRM   # Affirm – Fintech, EPS positivo y revisiones al alza
+    - FOXA   # Fox Corporation – Zacks Rank 1, sorpresa de EPS +24%
+    - NEM    # Newmont – minera de oro, sorpresa de EPS +32%
+    - HSTM   # HealthStream – EPS +42%
+    - IRDM   # Iridium – Rank #2 cercano, EPS +40%
+  filters:
+    min_rentabilidad_anual: 40
+    min_volatilidad_implícita: 35
+    max_días_vencimiento: 30
+    min_diferencia_porcentual: 2.0
+    min_bid: 1.00
+    min_volume: 100
+    min_open_interest: 500
+    precio_activo: null
+  alert_thresholds:
+    rentabilidad_anual: 45
+    margen_seguridad: 3
+    bid: 1.00
+    precio_activo: null
+    volumen: 150
+    open_interest: 500
+    notificar_discord: true
+
+validea_top_nasdaq100:
+  description: "Top fundamentos NASDAQ-100 (<150 USD)"
+  webhook: "https://discord.com/api/webhooks/1381339370757427281/bZH_WqvDY2YEW0_yvvpthcI_I8XkEqOg3-LXPQ1z2ETdTCCKrXfncoA0NOKOCxs3rz2S"  # agrega tu webhook si quieres alertas 
+  tickers:
+    - AMAT  # Applied Materials – P/E ~20, FCF y EPS estables
+    - CMCSA # Comcast – P/E ~8.5, flujo fuerte
+    - LRCX  # Lam Research – semiconductores y PE estable
+    - FTNT  # Fortinet – crecimiento EPS +44%, ciberseguridad
+  filters:
+    min_rentabilidad_anual: 40
+    min_volatilidad_implícita: 35
+    max_días_vencimiento: 30
+    min_diferencia_porcentual: 2.0
+    min_bid: 1.00
+    min_volume: 100
+    min_open_interest: 500
+    precio_activo: null
+  alert_thresholds:
+    rentabilidad_anual: 45
+    margen_seguridad: 3
+    bid: 1.00
+    precio_activo: null
+    volumen: 150
+    open_interest: 500
+    notificar_discord: true
+
+
+
+
+    
     
 
     
