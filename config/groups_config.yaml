@@ -3,6 +3,11 @@ shortlist_ruben:
   webhook: "https://discord.com/api/webhooks/1380659273494691840/O0n-99abTfYqaK31q0fXxBz0--JEN2LkUlzltBFyiHgZ2RM4fIUjochlHkbVMALeOZpG"
   tickers:
     - PLTR
+    - GLOB
+    - EPAM
+    - NFE
+    - GLNG
+    - ASTS
   filters:
     min_rentabilidad_anual: 20
     min_volatilidad_implícita: 25
@@ -25,7 +30,13 @@ shortlist_ruben:
   description: "Las 7 Magnificas"
   webhook: "https://discord.com/api/webhooks/1381031584798347385/EH0uxdMz5LdXXgrRWujG8QEGKSjlFgxnv10KPOEpeArN6XkVY9pwsHj-rLaWA1woSkMm"
   tickers:
-    - PLTR
+    - AAPL
+    - MSFT
+    - AMZN
+    - GOOGL
+    - META
+    - TSLA
+    - NVDA
   filters:
   filters:
     min_rentabilidad_anual: 20
