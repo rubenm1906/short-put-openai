@@ -1,5 +1,18 @@
 import requests
 
+def split_discord_message(mensaje, max_length=2000):
+    bloques = []
+    actual = ""
+    for linea in mensaje.splitlines(keepends=True):
+        if len(actual) + len(linea) > max_length:
+            bloques.append(actual)
+            actual = linea
+        else:
+            actual += linea
+    if actual:
+        bloques.append(actual)
+    return bloques
+
 def send_discord_notification(contratos, webhook_url, group_description):
     if not webhook_url or webhook_url == "REEMPLAZAR":
         print("[ERROR] Webhook no configurado correctamente.")
@@ -18,6 +31,8 @@ def send_discord_notification(contratos, webhook_url, group_description):
             f"HV: {c.get('historical_volatility', 0):.1f}%\n"
         )
 
-    response = requests.post(webhook_url, json={"content": mensaje})
-    if response.status_code != 204:
-        print(f"[ERROR] Fallo al enviar a Discord: {response.status_code} - {response.text}")
+    mensajes = split_discord_message(mensaje)
+    for m in mensajes:
+        response = requests.post(webhook_url, json={"content": m})
+        if response.status_code not in [200, 204]:
+            print(f"[ERROR] Fallo al enviar a Discord: {response.status_code} - {response.text}")
