@@ -2,5 +2,5 @@
 Descripción: Las 7 Magnificas
 Tickers analizados: PLTR
 Contratos válidos encontrados: 3
-Contratos que cumplen umbrales de alerta: 0
-Última ejecución: 2025-06-08 16:05:54 UTC
+Contratos que cumplen umbrales de alerta: 3
+Última ejecución: 2025-06-08 16:11:26 UTC
