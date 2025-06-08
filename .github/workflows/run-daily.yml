@@ -35,5 +35,5 @@ jobs:
           git add storage/*.csv storage/*.txt || echo "No hay archivos nuevos"
           git diff --cached --quiet || (
             git commit -m "Update resultados diarios" &&
-            git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+            git push https://x-access-token:$PAT_TOKEN@github.com/${{ github.repository }}.git HEAD:main
           )
