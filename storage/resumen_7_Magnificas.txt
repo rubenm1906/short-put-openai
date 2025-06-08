@@ -1,6 +1,6 @@
 === Grupo: 7_Magnificas ===
 Descripción: Las 7 Magnificas
 Tickers analizados: PLTR
-Contratos válidos encontrados: 44
-Contratos que cumplen umbrales de alerta: 27
-Última ejecución: 2025-06-08 15:52:10 UTC
+Contratos válidos encontrados: 3
+Contratos que cumplen umbrales de alerta: 0
+Última ejecución: 2025-06-08 16:05:54 UTC
