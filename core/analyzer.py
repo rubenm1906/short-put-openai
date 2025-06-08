@@ -6,7 +6,7 @@ from core.volatility import calculate_volatility_metrics
 from notifications.discord import send_discord_notification
 from datetime import datetime
 
-# Activa esto si quieres ver los motivos por los cuales se descarta cada contrato
+# Activa esto si quieres ver motivos de exclusión por consola
 debug = True
 
 def rank_top_contracts(contracts, top_n=3):
@@ -57,12 +57,17 @@ def run_group_analysis(group_id, group_data, global_results):
         for contract in top_contratos:
             contract["ticker"] = ticker
             all_contracts.append(contract)
+
+            excluido_por = motivos_exclusion_alerta(contract, thresholds)
+            contract["alerta_excluida_por"] = excluido_por  # nueva columna
+
             print("[VALIDO]", ticker, f"Strike: {contract['strike']}",
                   f"Bid: {contract['bid']}",
                   f"RA: {contract['rentabilidad_anual']:.1f}%",
-                  f"Días: {contract['days_to_expiration']}")
+                  f"Días: {contract['days_to_expiration']}",
+                  f"Alerta: {'❌' if excluido_por else '✅'}")
 
-            if is_contract_alert_worthy(contract, thresholds):
+            if not excluido_por:
                 alerted_contracts.append(contract)
 
     if all_contracts:
@@ -116,12 +121,25 @@ def is_contract_valid(contract, filters):
     es_valido = len(razones) == 0
     return es_valido, razones
 
-def is_contract_alert_worthy(contract, thresholds):
-    return (
-        contract["rentabilidad_anual"] >= thresholds.get("rentabilidad_anual", 999) and
-        contract["percent_diff"] >= thresholds.get("margen_seguridad", 999) and
-        contract["bid"] >= thresholds.get("bid", 999) and
-        contract["underlying_price"] <= thresholds.get("precio_activo", 0) and
-        contract["volume"] >= thresholds.get("volumen", 999) and
-        contract["open_interest"] >= thresholds.get("open_interest", 999)
-    )
+def motivos_exclusion_alerta(contract, thresholds):
+    razones = []
+
+    if contract["rentabilidad_anual"] < thresholds.get("rentabilidad_anual", 999):
+        razones.append("RA < umbral")
+
+    if contract["percent_diff"] < thresholds.get("margen_seguridad", 999):
+        razones.append("margen < umbral")
+
+    if contract["bid"] < thresholds.get("bid", 999):
+        razones.append("bid < umbral")
+
+    if contract["underlying_price"] > thresholds.get("precio_activo", 0):
+        razones.append("precio > umbral")
+
+    if contract["volume"] < thresholds.get("volumen", 999):
+        razones.append("volumen < umbral")
+
+    if contract["open_interest"] < thresholds.get("open_interest", 999):
+        razones.append("OI < umbral")
+
+    return ", ".join(razones)
