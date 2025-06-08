@@ -8,14 +8,27 @@ from datetime import datetime
 
 debug = True  # activa trazabilidad por consola
 
+def ra_dinamico_minimo(dias):
+    if dias <= 2:
+        return 70
+    elif dias <= 5:
+        return 55
+    elif dias <= 10:
+        return 45
+    else:
+        return 35
+
 def rank_top_contracts(contracts, top_n=3):
     def compute_score(c):
         iv = c.get("implied_volatility", 0)
         hv = c.get("historical_volatility", 0)
+        spread_bonus = 5 if (iv - hv) > 10 else 0
+
         return (
             c["rentabilidad_anual"] * 0.6 +
             c["percent_diff"] * 0.3 +
-            (iv - hv) * 0.1
+            (iv - hv) * 0.1 +
+            spread_bonus
         )
 
     return sorted(contracts, key=compute_score, reverse=True)[:top_n]
@@ -92,8 +105,11 @@ def run_group_analysis(group_id, group_data, global_results):
 def is_contract_valid(contract, filters):
     razones = []
 
-    if "min_rentabilidad_anual" in filters and contract["rentabilidad_anual"] < filters["min_rentabilidad_anual"]:
-        razones.append("RA < mínimo")
+    # RA dinámica por días restantes
+    if "min_rentabilidad_anual" in filters:
+        ra_min = ra_dinamico_minimo(contract["days_to_expiration"])
+        if contract["rentabilidad_anual"] < ra_min:
+            razones.append(f"RA < mínimo dinámico ({ra_min}%)")
 
     if "min_volatilidad_implícita" in filters and contract["implied_volatility"] < filters["min_volatilidad_implícita"]:
         razones.append("IV < mínimo")
