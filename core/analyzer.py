@@ -6,6 +6,9 @@ from core.volatility import calculate_volatility_metrics
 from notifications.discord import send_discord_notification
 from datetime import datetime
 
+# Activa esto si quieres ver los motivos por los cuales se descarta cada contrato
+debug = True
+
 def rank_top_contracts(contracts, top_n=3):
     def compute_score(c):
         iv = c.get("implied_volatility", 0)
@@ -42,8 +45,15 @@ def run_group_analysis(group_id, group_data, global_results):
             print(f"[WARN] No se encontraron opciones para {ticker}")
             continue
 
-        filtrados = [c for c in raw_data if is_contract_valid(c, filters)]
-        top_contratos = rank_top_contracts(filtrados, top_n=3)
+        contratos_filtrados = []
+        for contract in raw_data:
+            valido, motivos = is_contract_valid(contract, filters)
+            if valido:
+                contratos_filtrados.append(contract)
+            elif debug:
+                print(f"[DESCARTADO] {ticker} Strike: {contract['strike']} | Motivos: {', '.join(motivos)}")
+
+        top_contratos = rank_top_contracts(contratos_filtrados, top_n=3)
         for contract in top_contratos:
             contract["ticker"] = ticker
             all_contracts.append(contract)
@@ -77,16 +87,34 @@ def run_group_analysis(group_id, group_data, global_results):
         send_discord_notification(alerted_contracts, webhook, description)
 
 def is_contract_valid(contract, filters):
-    return (
-        contract["rentabilidad_anual"] >= filters.get("min_rentabilidad_anual", 0) and
-        contract["implied_volatility"] >= filters.get("min_volatilidad_implícita", 0) and
-        contract["days_to_expiration"] <= filters.get("max_días_vencimiento", 999) and
-        contract["percent_diff"] >= filters.get("min_diferencia_porcentual", 0) and
-        contract["bid"] >= filters.get("min_bid", 0) and
-        contract["volume"] >= filters.get("min_volume", 0) and
-        contract["open_interest"] >= filters.get("min_open_interest", 0) and
-        contract["underlying_price"] <= filters.get("max_precio_activo", 1e6)
-    )
+    razones = []
+
+    if contract["rentabilidad_anual"] < filters.get("min_rentabilidad_anual", 0):
+        razones.append("RA < mínimo")
+
+    if contract["implied_volatility"] < filters.get("min_volatilidad_implícita", 0):
+        razones.append("IV < mínimo")
+
+    if contract["days_to_expiration"] > filters.get("max_días_vencimiento", 999):
+        razones.append("días > máximo")
+
+    if contract["percent_diff"] < filters.get("min_diferencia_porcentual", 0):
+        razones.append("margen < mínimo")
+
+    if contract["bid"] < filters.get("min_bid", 0):
+        razones.append("bid < mínimo")
+
+    if contract["volume"] < filters.get("min_volume", 0):
+        razones.append("volumen < mínimo")
+
+    if contract["open_interest"] < filters.get("min_open_interest", 0):
+        razones.append("OI < mínimo")
+
+    if contract["underlying_price"] > filters.get("max_precio_activo", 1e6):
+        razones.append("precio subyacente > máximo")
+
+    es_valido = len(razones) == 0
+    return es_valido, razones
 
 def is_contract_alert_worthy(contract, thresholds):
     return (
