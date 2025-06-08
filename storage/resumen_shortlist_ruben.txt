@@ -1,0 +1,6 @@
+=== Grupo: shortlist_ruben ===
+Descripción: Oportunidades Short Put
+Tickers analizados: AAPL, INTC, PLTR, SOFI, LCID
+Contratos válidos encontrados: 68
+Contratos que cumplen umbrales de alerta: 28
+Última ejecución: 2025-06-08 15:42:03 UTC

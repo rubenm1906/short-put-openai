@@ -1,0 +1,6 @@
+=== Grupo: 7_Magnificas ===
+Descripción: Las 7 Magnificas
+Tickers analizados: AAPL, AMZN, GOOGL, MSFT, META, TSLA, NVDA, PLTR
+Contratos válidos encontrados: 26
+Contratos que cumplen umbrales de alerta: 0
+Última ejecución: 2025-06-08 15:42:10 UTC
