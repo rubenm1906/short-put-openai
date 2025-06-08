@@ -17,8 +17,11 @@ if __name__ == "__main__":
     tickers_unicos = collect_unique_tickers(grupos)
 
     print("[INFO] Obteniendo contratos para todos los tickers...")
+    config_default = {
+        "max_días_vencimiento": 45  # Precarga máxima para todos los contratos
+    }
     ticker_data = {
-        ticker: get_option_data_yahoo(ticker) for ticker in tickers_unicos
+        ticker: get_option_data_yahoo(ticker, config_default) for ticker in tickers_unicos
     }
 
     for nombre, config in grupos.items():
