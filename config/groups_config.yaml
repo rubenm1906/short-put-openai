@@ -37,6 +37,7 @@ shortlist_ruben:
     - META
     - TSLA
     - NVDA
+    - PLTR
   filters:
   filters:
     min_rentabilidad_anual: 20
@@ -56,7 +57,7 @@ shortlist_ruben:
     open_interest: 300
     notificar_discord: true
 
-  Indices:
+Indices:
   description: "Indices"
   webhook: "https://discord.com/api/webhooks/1381310131152617532/qO-IFJn72FlYximNqw4_w9UsRaomjobukev431lWNzzC4boL-vke_TAt03QP73m0VM_p"
   tickers:
@@ -64,6 +65,7 @@ shortlist_ruben:
     - QQQ
     - IWM
     - DIA
+    - PLTR
   filters:
   filters:
     min_rentabilidad_anual: 20
