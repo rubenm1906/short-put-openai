@@ -6,8 +6,7 @@ from core.volatility import calculate_volatility_metrics
 from notifications.discord import send_discord_notification
 from datetime import datetime
 
-# Activa esto si quieres ver motivos de exclusión por consola
-debug = True
+debug = True  # activa trazabilidad por consola
 
 def rank_top_contracts(contracts, top_n=3):
     def compute_score(c):
@@ -19,8 +18,7 @@ def rank_top_contracts(contracts, top_n=3):
             (iv - hv) * 0.1
         )
 
-    ranked = sorted(contracts, key=compute_score, reverse=True)
-    return ranked[:top_n]
+    return sorted(contracts, key=compute_score, reverse=True)[:top_n]
 
 def run_group_analysis(group_id, group_data, global_results):
     description = group_data.get("description", group_id)
@@ -59,13 +57,13 @@ def run_group_analysis(group_id, group_data, global_results):
             all_contracts.append(contract)
 
             excluido_por = motivos_exclusion_alerta(contract, thresholds)
-            contract["alerta_excluida_por"] = excluido_por  # nueva columna
+            contract["alerta_excluida_por"] = excluido_por
 
             print("[VALIDO]", ticker, f"Strike: {contract['strike']}",
                   f"Bid: {contract['bid']}",
                   f"RA: {contract['rentabilidad_anual']:.1f}%",
                   f"Días: {contract['days_to_expiration']}",
-                  f"Alerta: {'❌' if excluido_por else '✅'}")
+                  f"Alerta: {'✅' if not excluido_por else '❌'}")
 
             if not excluido_por:
                 alerted_contracts.append(contract)
@@ -94,52 +92,53 @@ def run_group_analysis(group_id, group_data, global_results):
 def is_contract_valid(contract, filters):
     razones = []
 
-    if contract["rentabilidad_anual"] < filters.get("min_rentabilidad_anual", 0):
+    if "min_rentabilidad_anual" in filters and contract["rentabilidad_anual"] < filters["min_rentabilidad_anual"]:
         razones.append("RA < mínimo")
 
-    if contract["implied_volatility"] < filters.get("min_volatilidad_implícita", 0):
+    if "min_volatilidad_implícita" in filters and contract["implied_volatility"] < filters["min_volatilidad_implícita"]:
         razones.append("IV < mínimo")
 
-    if contract["days_to_expiration"] > filters.get("max_días_vencimiento", 999):
+    if "max_días_vencimiento" in filters and contract["days_to_expiration"] > filters["max_días_vencimiento"]:
         razones.append("días > máximo")
 
-    if contract["percent_diff"] < filters.get("min_diferencia_porcentual", 0):
+    if "min_diferencia_porcentual" in filters and contract["percent_diff"] < filters["min_diferencia_porcentual"]:
         razones.append("margen < mínimo")
 
-    if contract["bid"] < filters.get("min_bid", 0):
+    if "min_bid" in filters and contract["bid"] < filters["min_bid"]:
         razones.append("bid < mínimo")
 
-    if contract["volume"] < filters.get("min_volume", 0):
+    if "min_volume" in filters and contract["volume"] < filters["min_volume"]:
         razones.append("volumen < mínimo")
 
-    if contract["open_interest"] < filters.get("min_open_interest", 0):
+    if "min_open_interest" in filters and contract["open_interest"] < filters["min_open_interest"]:
         razones.append("OI < mínimo")
 
-    if contract["underlying_price"] > filters.get("max_precio_activo", 1e6):
-        razones.append("precio subyacente > máximo")
+    if "precio_activo" in filters and filters["precio_activo"] is not None:
+        if contract["underlying_price"] > filters["precio_activo"]:
+            razones.append("precio subyacente > máximo")
 
-    es_valido = len(razones) == 0
-    return es_valido, razones
+    return len(razones) == 0, razones
 
 def motivos_exclusion_alerta(contract, thresholds):
     razones = []
 
-    if contract["rentabilidad_anual"] < thresholds.get("rentabilidad_anual", 999):
+    if "rentabilidad_anual" in thresholds and contract["rentabilidad_anual"] < thresholds["rentabilidad_anual"]:
         razones.append("RA < umbral")
 
-    if contract["percent_diff"] < thresholds.get("margen_seguridad", 999):
+    if "margen_seguridad" in thresholds and contract["percent_diff"] < thresholds["margen_seguridad"]:
         razones.append("margen < umbral")
 
-    if contract["bid"] < thresholds.get("bid", 999):
+    if "bid" in thresholds and contract["bid"] < thresholds["bid"]:
         razones.append("bid < umbral")
 
-    if contract["underlying_price"] > thresholds.get("precio_activo", 0):
-        razones.append("precio > umbral")
+    if "precio_activo" in thresholds and thresholds["precio_activo"] is not None:
+        if contract["underlying_price"] > thresholds["precio_activo"]:
+            razones.append("precio > umbral")
 
-    if contract["volume"] < thresholds.get("volumen", 999):
+    if "volumen" in thresholds and contract["volume"] < thresholds["volumen"]:
         razones.append("volumen < umbral")
 
-    if contract["open_interest"] < thresholds.get("open_interest", 999):
+    if "open_interest" in thresholds and contract["open_interest"] < thresholds["open_interest"]:
         razones.append("OI < umbral")
 
     return ", ".join(razones)
