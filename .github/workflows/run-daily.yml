@@ -1,28 +1,36 @@
 # .github/workflows/run-daily.yml
 
-name: Run Screener
+name: Run Short Put Screener Daily and On Demand
 
 on:
   schedule:
-    - cron: '30 13 * * *'  # 15:30 CET
-    - cron: '0 16 * * *'   # 18:00 CET
-    - cron: '0 19 * * *'   # 21:00 CET
+    - cron: "30 13 * * *"  # 15:30 CET
+    - cron: "0 16 * * *"   # 18:00 CET
+    - cron: "0 19 * * *"   # 21:00 CET
   workflow_dispatch:
 
 jobs:
-  build:
+  run-screener:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-    - name: Run Screener
-      run: python main.py
+      - name: Run script
+        run: python main.py
+
+      - name: Commit y push resultados
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add storage/*.csv storage/*.txt || echo "No hay archivos nuevos"
+          git diff --cached --quiet || (git commit -m "Update resultados diarios" && git push)
