@@ -1,6 +1,6 @@
-=== Grupo: 7_Magnificas ===
-Descripción: Las 7 Magnificas
-Tickers analizados: AAPL, MSFT, AMZN, GOOGL, META, TSLA, NVDA
+=== Grupo: Top 10 Nasdap ===
+Descripción: SP500 Top 10
+Tickers analizados: AVGO, COST, JPM, LLY, PG, TMO, UNH, HD, V
 Contratos válidos encontrados: 6
 Contratos que cumplen umbrales de alerta: 4
 Última ejecución: 2025-06-08 17:55:55 UTC
