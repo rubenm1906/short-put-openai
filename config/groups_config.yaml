@@ -1,5 +1,5 @@
 Shortlist_ruben:
-  description: Oportunidades Short Put 
+  description: "Oportunidades Short Put" 
   webhook: "https://discord.com/api/webhooks/1380659273494691840/O0n-99abTfYqaK31q0fXxBz0--JEN2LkUlzltBFyiHgZ2RM4fIUjochlHkbVMALeOZpG"
   tickers:
     - PLTR
@@ -82,7 +82,7 @@ Indices:
     notificar_discord: true
 
 Top 10 Nasdap:
-  description: Nasdaq Top 10 
+  description: "Nasdaq Top 10" 
   webhook: "https://discord.com/api/webhooks/1381327174023254047/6_NYJfb8rSW2YPNfuK4G_sYJpiYu_GNAZyJlz3baL7tWop1mNPVskwLNUPr0qCxov-j3"
   tickers:
     - AVGO
@@ -113,7 +113,7 @@ Top 10 Nasdap:
     notificar_discord: true
 
 Top 10 SP500:
-  description: SP500 Top 10  
+  description: "SP500 Top 10"  
   webhook: "https://discord.com/api/webhooks/1381330484432207892/ZAQOg8B-JvVlEr2Qb7ULPzJjDK_IIeJeTJxhMGBe6yZaNc62mZ4YhzZk-YONuR0cKAAO"
   tickers:
     - AVGO
@@ -195,11 +195,3 @@ validea_top_nasdaq100:
     volumen: 150
     open_interest: 500
     notificar_discord: true
-
-
-
-
-    
-    
-
-    
