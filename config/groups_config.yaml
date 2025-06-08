@@ -81,4 +81,67 @@ Indices:
     open_interest: 500
     notificar_discord: true
 
+Top 10 Nasdap:
+  description: Nasdaq Top 10 
+  webhook: "https://discord.com/api/webhooks/1381327174023254047/6_NYJfb8rSW2YPNfuK4G_sYJpiYu_GNAZyJlz3baL7tWop1mNPVskwLNUPr0qCxov-j3"
+  tickers:
+    - AVGO
+    - WDAY
+    - EQT
+    - BTSG
+    - CF
+    - QLYS
+    - NVMI
+    - PANW
+    - MELI
+  filters:
+    min_rentabilidad_anual: 50        # RA mínima aceptable
+    min_volatilidad_implícita: 35      # IV suficiente para justificar la prima
+    max_días_vencimiento: 30           # Ventanas de vencimiento relativamente cortas
+    min_diferencia_porcentual: 2.0     # Buen margen de seguridad (break-even vs precio actual)
+    min_bid: 1.00                      # Primas de al menos $100
+    min_volume: 100                   # Evita opciones ilíquidas
+    min_open_interest: 500           # Necesario para evitar spreads raros
+    precio_activo: null              # Por ahora no limitamos por precio de acción
+  alert_thresholds:
+    rentabilidad_anual: 45           # Solo alertar si supera 45% RA
+    margen_seguridad: 3              # Y al menos 3% de margen
+    bid: 1.0                         # Prima mínima para alertar
+    precio_activo: null
+    volumen: 150                     # Asegura buena liquidez en los alertados
+    open_interest: 500
+    notificar_discord: true
+
+  Top 10 SP500:
+  description: SP500 Top 10  
+  webhook: "https://discord.com/api/webhooks/1381330484432207892/ZAQOg8B-JvVlEr2Qb7ULPzJjDK_IIeJeTJxhMGBe6yZaNc62mZ4YhzZk-YONuR0cKAAO"
+  tickers:
+    - AVGO
+    - COST
+    - JPM
+    - LLY
+    - PG
+    - TMO
+    - UNH
+    - HD
+    - V
+  filters:
+    min_rentabilidad_anual: 50        # RA mínima aceptable
+    min_volatilidad_implícita: 35      # IV suficiente para justificar la prima
+    max_días_vencimiento: 30           # Ventanas de vencimiento relativamente cortas
+    min_diferencia_porcentual: 2.0     # Buen margen de seguridad (break-even vs precio actual)
+    min_bid: 1.00                      # Primas de al menos $100
+    min_volume: 100                   # Evita opciones ilíquidas
+    min_open_interest: 500           # Necesario para evitar spreads raros
+    precio_activo: null              # Por ahora no limitamos por precio de acción
+  alert_thresholds:
+    rentabilidad_anual: 45           # Solo alertar si supera 45% RA
+    margen_seguridad: 3              # Y al menos 3% de margen
+    bid: 1.0                         # Prima mínima para alertar
+    precio_activo: null
+    volumen: 150                     # Asegura buena liquidez en los alertados
+    open_interest: 500
+    notificar_discord: true
+    
+
     
