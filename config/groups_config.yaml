@@ -14,7 +14,7 @@ shortlist_ruben:
     max_precio_activo: 250
   alert_thresholds:
     rentabilidad_anual: 35
-    margen_seguridad: 5
+    margen_seguridad: 3
     bid: 0.5
     precio_activo: 250
     volumen: 150
@@ -38,7 +38,7 @@ shortlist_ruben:
     max_precio_activo: 250
   alert_thresholds:
     rentabilidad_anual: 35
-    margen_seguridad: 5
+    margen_seguridad: 3
     bid: 0.5
     precio_activo: 250
     volumen: 150
