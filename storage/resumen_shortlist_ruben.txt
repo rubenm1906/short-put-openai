@@ -3,4 +3,4 @@ Descripción: Oportunidades Short Put
 Tickers analizados: PLTR
 Contratos válidos encontrados: 44
 Contratos que cumplen umbrales de alerta: 27
-Última ejecución: 2025-06-08 15:46:18 UTC
+Última ejecución: 2025-06-08 15:52:09 UTC
