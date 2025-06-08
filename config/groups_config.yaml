@@ -9,9 +9,9 @@ shortlist_ruben:
     - GLNG
     - ASTS
   filters:
-    min_rentabilidad_anual: 35
-    min_volatilidad_implícita: 35
-    max_días_vencimiento: 30
+    min_rentabilidad_anual: 50
+    min_volatilidad_implícita: 40
+    max_días_vencimiento: 45
     min_diferencia_porcentual: 1.5
     min_bid: 1.00
     min_volume: 1
@@ -19,7 +19,7 @@ shortlist_ruben:
     precio_activo: null  # ← Desactivado, solo documentado
   alert_thresholds:
     rentabilidad_anual: 35
-    margen_seguridad: 3
+    margen_seguridad: 4
     bid: 1.0
     precio_activo: null  # ← Desactivado, solo documentado
     volumen: 1
@@ -37,11 +37,10 @@ shortlist_ruben:
     - META
     - TSLA
     - NVDA
-    - PLTR
   filters:
-    min_rentabilidad_anual: 35
-    min_volatilidad_implícita: 35
-    max_días_vencimiento: 30
+    min_rentabilidad_anual: 50
+    min_volatilidad_implícita: 40
+    max_días_vencimiento: 45
     min_diferencia_porcentual: 1.5
     min_bid: 1.00
     min_volume: 1
@@ -49,7 +48,7 @@ shortlist_ruben:
     precio_activo: null  # ← Desactivado, solo documentado
   alert_thresholds:
     rentabilidad_anual: 35
-    margen_seguridad: 3
+    margen_seguridad: 4
     bid: 1.0
     precio_activo: null  # ← Desactivado, solo documentado
     volumen: 1
@@ -66,9 +65,9 @@ Indices:
     - DIA
     - PLTR
   filters:
-    min_rentabilidad_anual: 35
-    min_volatilidad_implícita: 35
-    max_días_vencimiento: 30
+    min_rentabilidad_anual: 50
+    min_volatilidad_implícita: 40
+    max_días_vencimiento: 45
     min_diferencia_porcentual: 1.5
     min_bid: 1.00
     min_volume: 1
@@ -76,7 +75,7 @@ Indices:
     precio_activo: null  # ← Desactivado, solo documentado
   alert_thresholds:
     rentabilidad_anual: 35
-    margen_seguridad: 3
+    margen_seguridad: 4
     bid: 1.0
     precio_activo: null  # ← Desactivado, solo documentado
     volumen: 1
