@@ -56,4 +56,31 @@ shortlist_ruben:
     open_interest: 300
     notificar_discord: true
 
+  Indices:
+  description: "Indices"
+  webhook: "https://discord.com/api/webhooks/1351688679353221202/Aoyn8_T6YWl4QYruzauJGoqYKyGek6UVoomUa3APmEXt4RkhX9spXvhAgDSf1Ck00SJA"
+  tickers:
+    - SPY
+    - QQQ
+    - IWM
+    - DIA
+  filters:
+  filters:
+    min_rentabilidad_anual: 20
+    min_volatilidad_implícita: 25
+    max_días_vencimiento: 30
+    min_diferencia_porcentual: 1.5
+    min_bid: 0.3
+    min_volume: 100
+    min_open_interest: 200
+    max_precio_activo: 250
+  alert_thresholds:
+    rentabilidad_anual: 35
+    margen_seguridad: 3
+    bid: 0.5
+    precio_activo: 250
+    volumen: 150
+    open_interest: 300
+    notificar_discord: true
+
     
