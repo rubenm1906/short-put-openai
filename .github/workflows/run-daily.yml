@@ -40,6 +40,6 @@ jobs:
             git push https://x-access-token:$PAT_TOKEN@github.com/${{ github.repository }}.git HEAD:main
           )
       - name: Exportar resultados a Google Sheets
-        run: python export_to_sheets_env.py
+        run: python export_to_sheets.py
         env:
           GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}
