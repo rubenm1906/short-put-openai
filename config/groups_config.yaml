@@ -9,21 +9,21 @@ shortlist_ruben:
     - GLNG
     - ASTS
   filters:
-    min_rentabilidad_anual: 20
-    min_volatilidad_implícita: 25
+    min_rentabilidad_anual: 35
+    min_volatilidad_implícita: 35
     max_días_vencimiento: 30
     min_diferencia_porcentual: 1.5
-    min_bid: 0.3
-    min_volume: 100
-    min_open_interest: 200
-    max_precio_activo: 250
-  alert_thresholds:
-    rentabilidad_anual: 20
-    margen_seguridad: 3
-    bid: 0.5
+    min_bid: 1.00
+    min_volume: 1
+    min_open_interest: 1
     # precio_activo: 250 Filtro directo en acciones
-    volumen: 150
-    open_interest: 300
+  alert_thresholds:
+    rentabilidad_anual: 35
+    margen_seguridad: 3
+    bid: 1.0
+    # precio_activo: 250 Filtro directo en acciones
+    volumen: 1
+    open_interest: 1
     notificar_discord: true
 
 7_Magnificas:
@@ -39,22 +39,21 @@ shortlist_ruben:
     - NVDA
     - PLTR
   filters:
-  filters:
-    min_rentabilidad_anual: 20
-    min_volatilidad_implícita: 25
+    min_rentabilidad_anual: 35
+    min_volatilidad_implícita: 35
     max_días_vencimiento: 30
     min_diferencia_porcentual: 1.5
-    min_bid: 0.3
-    min_volume: 100
-    min_open_interest: 200
-    max_precio_activo: 250
-  alert_thresholds:
-    rentabilidad_anual: 20
-    margen_seguridad: 3
-    bid: 0.5
+    min_bid: 1.00
+    min_volume: 1
+    min_open_interest: 1
     # precio_activo: 250 Filtro directo en acciones
-    volumen: 150
-    open_interest: 300
+  alert_thresholds:
+    rentabilidad_anual: 35
+    margen_seguridad: 3
+    bid: 1.0
+    # precio_activo: 250 Filtro directo en acciones
+    volumen: 1
+    open_interest: 1
     notificar_discord: true
 
 Indices:
@@ -67,22 +66,21 @@ Indices:
     - DIA
     - PLTR
   filters:
-  filters:
-    min_rentabilidad_anual: 20
-    min_volatilidad_implícita: 25
+    min_rentabilidad_anual: 35
+    min_volatilidad_implícita: 35
     max_días_vencimiento: 30
     min_diferencia_porcentual: 1.5
-    min_bid: 0.3
-    min_volume: 100
-    min_open_interest: 200
-    max_precio_activo: 250
-  alert_thresholds:
-    rentabilidad_anual: 20
-    margen_seguridad: 3
-    bid: 0.5
+    min_bid: 1.00
+    min_volume: 1
+    min_open_interest: 1
     # precio_activo: 250 Filtro directo en acciones
-    volumen: 150
-    open_interest: 300
+  alert_thresholds:
+    rentabilidad_anual: 35
+    margen_seguridad: 3
+    bid: 1.0
+    # precio_activo: 250 Filtro directo en acciones
+    volumen: 1
+    open_interest: 1
     notificar_discord: true
 
     
