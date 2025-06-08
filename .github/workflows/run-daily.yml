@@ -1,5 +1,3 @@
-# .github/workflows/run-daily.yml
-
 name: Run Short Put Screener Daily and On Demand
 
 on:
@@ -29,8 +27,13 @@ jobs:
         run: python main.py
 
       - name: Commit y push resultados
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name "shortput-bot"
+          git config user.email "bot@shortput.com"
           git add storage/*.csv storage/*.txt || echo "No hay archivos nuevos"
-          git diff --cached --quiet || (git commit -m "Update resultados diarios" && git push)
+          git diff --cached --quiet || (
+            git commit -m "Update resultados diarios" &&
+            git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+          )
