@@ -9,21 +9,21 @@ shortlist_ruben:
     - GLNG
     - ASTS
   filters:
-    min_rentabilidad_anual: 50
-    min_volatilidad_implícita: 40
-    max_días_vencimiento: 45
-    min_diferencia_porcentual: 1.5
-    min_bid: 1.00
-    min_volume: 1
-    min_open_interest: 1
-    precio_activo: null  # ← Desactivado, solo documentado
+    min_rentabilidad_anual: 50        # RA mínima aceptable
+    min_volatilidad_implícita: 35      # IV suficiente para justificar la prima
+    max_días_vencimiento: 30           # Ventanas de vencimiento relativamente cortas
+    min_diferencia_porcentual: 2.0     # Buen margen de seguridad (break-even vs precio actual)
+    min_bid: 1.00                      # Primas de al menos $100
+    min_volume: 100                   # Evita opciones ilíquidas
+    min_open_interest: 500           # Necesario para evitar spreads raros
+    precio_activo: null              # Por ahora no limitamos por precio de acción
   alert_thresholds:
-    rentabilidad_anual: 35
-    margen_seguridad: 4
-    bid: 1.0
-    precio_activo: null  # ← Desactivado, solo documentado
-    volumen: 1
-    open_interest: 1
+    rentabilidad_anual: 45           # Solo alertar si supera 45% RA
+    margen_seguridad: 3              # Y al menos 3% de margen
+    bid: 1.0                         # Prima mínima para alertar
+    precio_activo: null
+    volumen: 150                     # Asegura buena liquidez en los alertados
+    open_interest: 500
     notificar_discord: true
 
 7_Magnificas:
@@ -38,21 +38,21 @@ shortlist_ruben:
     - TSLA
     - NVDA
   filters:
-    min_rentabilidad_anual: 50
-    min_volatilidad_implícita: 40
-    max_días_vencimiento: 45
-    min_diferencia_porcentual: 1.5
-    min_bid: 1.00
-    min_volume: 1
-    min_open_interest: 1
-    precio_activo: null  # ← Desactivado, solo documentado
+    min_rentabilidad_anual: 50        # RA mínima aceptable
+    min_volatilidad_implícita: 35      # IV suficiente para justificar la prima
+    max_días_vencimiento: 30           # Ventanas de vencimiento relativamente cortas
+    min_diferencia_porcentual: 2.0     # Buen margen de seguridad (break-even vs precio actual)
+    min_bid: 1.00                      # Primas de al menos $100
+    min_volume: 100                   # Evita opciones ilíquidas
+    min_open_interest: 500           # Necesario para evitar spreads raros
+    precio_activo: null              # Por ahora no limitamos por precio de acción
   alert_thresholds:
-    rentabilidad_anual: 35
-    margen_seguridad: 4
-    bid: 1.0
-    precio_activo: null  # ← Desactivado, solo documentado
-    volumen: 1
-    open_interest: 1
+    rentabilidad_anual: 45           # Solo alertar si supera 45% RA
+    margen_seguridad: 3              # Y al menos 3% de margen
+    bid: 1.0                         # Prima mínima para alertar
+    precio_activo: null
+    volumen: 150                     # Asegura buena liquidez en los alertados
+    open_interest: 500
     notificar_discord: true
 
 Indices:
@@ -63,23 +63,22 @@ Indices:
     - QQQ
     - IWM
     - DIA
-    - PLTR
   filters:
-    min_rentabilidad_anual: 50
-    min_volatilidad_implícita: 40
-    max_días_vencimiento: 45
-    min_diferencia_porcentual: 1.5
-    min_bid: 1.00
-    min_volume: 1
-    min_open_interest: 1
-    precio_activo: null  # ← Desactivado, solo documentado
+    min_rentabilidad_anual: 50        # RA mínima aceptable
+    min_volatilidad_implícita: 35      # IV suficiente para justificar la prima
+    max_días_vencimiento: 30           # Ventanas de vencimiento relativamente cortas
+    min_diferencia_porcentual: 2.0     # Buen margen de seguridad (break-even vs precio actual)
+    min_bid: 1.00                      # Primas de al menos $100
+    min_volume: 100                   # Evita opciones ilíquidas
+    min_open_interest: 500           # Necesario para evitar spreads raros
+    precio_activo: null              # Por ahora no limitamos por precio de acción
   alert_thresholds:
-    rentabilidad_anual: 35
-    margen_seguridad: 4
-    bid: 1.0
-    precio_activo: null  # ← Desactivado, solo documentado
-    volumen: 1
-    open_interest: 1
+    rentabilidad_anual: 45           # Solo alertar si supera 45% RA
+    margen_seguridad: 3              # Y al menos 3% de margen
+    bid: 1.0                         # Prima mínima para alertar
+    precio_activo: null
+    volumen: 150                     # Asegura buena liquidez en los alertados
+    open_interest: 500
     notificar_discord: true
 
     
