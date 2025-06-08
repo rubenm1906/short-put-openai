@@ -21,7 +21,7 @@ shortlist_ruben:
     rentabilidad_anual: 35
     margen_seguridad: 3
     bid: 0.5
-    precio_activo: 250
+    # precio_activo: 250 Filtro directo en acciones
     volumen: 150
     open_interest: 300
     notificar_discord: true
@@ -51,7 +51,7 @@ shortlist_ruben:
     rentabilidad_anual: 35
     margen_seguridad: 3
     bid: 0.5
-    precio_activo: 250
+    # precio_activo: 250 Filtro directo en acciones
     volumen: 150
     open_interest: 300
     notificar_discord: true
@@ -78,7 +78,7 @@ shortlist_ruben:
     rentabilidad_anual: 35
     margen_seguridad: 3
     bid: 0.5
-    precio_activo: 250
+    # precio_activo: 250 Filtro directo en acciones
     volumen: 150
     open_interest: 300
     notificar_discord: true
