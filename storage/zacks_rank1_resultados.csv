@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,alerta_excluida_por
-57.5,1.85,57.812921875,1.66,107.0,1759,2025-06-20,11,2.8173794976238966,151.41398508197517,55.84,5.227427019687709,58.92,82.4,AFRM,volumen < umbral
+59.0,1.73,55.51802294921876,1.99,421.0,707,2025-06-20,10,3.2939439433640274,226.38664869414433,57.01,5.634299391365233,60.4139,82.57,AFRM,
