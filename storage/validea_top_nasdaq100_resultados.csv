@@ -1,0 +1,2 @@
+strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,alerta_excluida_por
+89.0,1.54,38.52600537109374,1.72,151.0,1020.0,2025-06-20,9,1.8934410980197027,113.9808232923627,87.28,3.918872653976941,90.8399,37.15,LRCX,
