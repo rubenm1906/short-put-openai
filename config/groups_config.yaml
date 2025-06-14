@@ -1,6 +1,6 @@
 Shortlist_ruben:
   description: "Oportunidades Short Put" 
-  webhook: "https://discord.com/api/webhooks/1380659273494691840/O0n-99abTfYqaK31q0fXxBz0--JEN2LkUlzltBFyiHgZ2RM4fIUjochlHkbVMALeOZpG"
+  webhook: "https://discord.com/api/webhooks/1383555843881959524/qQOOhlMAKBKah4-4hHM5JFN87msR8iyt5-FkK0PenU-k0qFySJOyXkzv8SpdV7zyuKZH"
   tickers:
     - PLTR
     - GLOB
@@ -24,11 +24,11 @@ Shortlist_ruben:
     precio_activo: null
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
-    notificar_discord: false
+    notificar_discord: true
 
 7_Magnificas:
   description: "Las 7 Magnificas"
-  webhook: "https://discord.com/api/webhooks/1381031584798347385/EH0uxdMz5LdXXgrRWujG8QEGKSjlFgxnv10KPOEpeArN6XkVY9pwsHj-rLaWA1woSkMm"
+  webhook: "https://discord.com/api/webhooks/1383556126246965409/wJObX3DS75K_CRJZBJlBC6x0wPWhISrBwCr87lTsKAYvVlIdGS_tmj8iK98oMBRRHmXD"
   tickers:
     - AAPL
     - MSFT
@@ -53,11 +53,11 @@ Shortlist_ruben:
     precio_activo: null
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
-    notificar_discord: false
+    notificar_discord: true
 
 Indices:
   description: "Indices"
-  webhook: "https://discord.com/api/webhooks/1381310131152617532/qO-IFJn72FlYximNqw4_w9UsRaomjobukev431lWNzzC4boL-vke_TAt03QP73m0VM_p"
+  webhook: "https://discord.com/api/webhooks/1383556338411372604/N36Xy3-3WCSL8XE9EVCAtQZlGEkcao-hIdEsOiUbac2VgNv_wT_AzFBgilIKYFQw67cO"
   tickers:
     - SPY
     - QQQ
@@ -79,11 +79,11 @@ Indices:
     precio_activo: null
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
-    notificar_discord: false
+    notificar_discord: true
 
 Top 10 Nasdap:
   description: "Nasdaq Top 10" 
-  webhook: "https://discord.com/api/webhooks/1381327174023254047/6_NYJfb8rSW2YPNfuK4G_sYJpiYu_GNAZyJlz3baL7tWop1mNPVskwLNUPr0qCxov-j3"
+  webhook: "https://discord.com/api/webhooks/1383556500466962502/8vWbZVuy5E-kTlsawaE4qGKgl0AfLKYkm5D_br1jm-0PpWBeatpqYT_4Kuuxx5_VBHYv"
   tickers:
     - AVGO
     - WDAY
@@ -110,11 +110,11 @@ Top 10 Nasdap:
     precio_activo: null
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
-    notificar_discord: false
+    notificar_discord: true
 
 Top 10 SP500:
   description: "SP500 Top 10"  
-  webhook: "https://discord.com/api/webhooks/1381330484432207892/ZAQOg8B-JvVlEr2Qb7ULPzJjDK_IIeJeTJxhMGBe6yZaNc62mZ4YhzZk-YONuR0cKAAO"
+  webhook: "https://discord.com/api/webhooks/1383556500466962502/8vWbZVuy5E-kTlsawaE4qGKgl0AfLKYkm5D_br1jm-0PpWBeatpqYT_4Kuuxx5_VBHYv"
   tickers:
     - AVGO
     - COST
@@ -141,11 +141,11 @@ Top 10 SP500:
     precio_activo: null
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
-    notificar_discord: false
+    notificar_discord: true
 
 zacks_rank1:
   description: "Zacks Rank #1 Strong Buy (<150 USD)"
-  webhook: "https://discord.com/api/webhooks/1381339370757427281/bZH_WqvDY2YEW0_yvvpthcI_I8XkEqOg3-LXPQ1z2ETdTCCKrXfncoA0NOKOCxs3rz2S"  # agrega tu webhook para alertas
+  webhook: "https://discord.com/api/webhooks/1383556869720899655/MubUQBjNacYPXgQHCEwA1Hnd3LyRp0sndFUt5GCxohxIMvpZ7X36yE8rQ6kd1yYirWsN"  # agrega tu webhook para alertas
   tickers:
     - AFRM   # Affirm – Fintech, EPS positivo y revisiones al alza
     - FOXA   # Fox Corporation – Zacks Rank 1, sorpresa de EPS +24%
@@ -168,11 +168,11 @@ zacks_rank1:
     precio_activo: null
     volumen: 150
     open_interest: 500
-    notificar_discord: false
+    notificar_discord: true
 
 validea_top_nasdaq100:
   description: "Top fundamentos NASDAQ-100 (<150 USD)"
-  webhook: "https://discord.com/api/webhooks/1381339370757427281/bZH_WqvDY2YEW0_yvvpthcI_I8XkEqOg3-LXPQ1z2ETdTCCKrXfncoA0NOKOCxs3rz2S"  # agrega tu webhook si quieres alertas 
+  webhook: "https://discord.com/api/webhooks/1383557091977072773/d0fcEDkM7uHh1nseb20MoRyFL_RwW3lv1PxlUdiGJ99TGBv4lUR_765Uw4xzdSIoACtI"  # agrega tu webhook si quieres alertas 
   tickers:
     - AMAT  # Applied Materials – P/E ~20, FCF y EPS estables
     - CMCSA # Comcast – P/E ~8.5, flujo fuerte
@@ -194,4 +194,4 @@ validea_top_nasdaq100:
     precio_activo: null
     volumen: 150
     open_interest: 500
-    notificar_discord: false
+    notificar_discord: true
