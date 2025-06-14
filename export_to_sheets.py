@@ -14,6 +14,7 @@ SCOPE = [
 
 CSV_FILE = "storage/shortlist_ruben_resultados.csv"
 SPREADSHEET_NAME = "Resultados Short Put - Rubén"
+CORREO_DESTINATARIO = "rubenmarin19@gmail.com"
 
 def export_to_google_sheets():
     print("🔍 Iniciando exportación a Google Sheets...")
@@ -55,16 +56,21 @@ def export_to_google_sheets():
             sheet = client.create(SPREADSHEET_NAME)
             print(f"📘 Hoja creada: {SPREADSHEET_NAME}")
 
+        # Compartir contigo automáticamente
+        sheet.share(CORREO_DESTINATARIO, perm_type="user", role="writer")
+        print(f"📤 Hoja compartida con {CORREO_DESTINATARIO}")
+
         worksheet = sheet.get_worksheet(0)
 
         # Limpieza y conversión segura
         df_clean = df.replace([float("inf"), float("-inf")], pd.NA)
-        df_clean = df_clean.fillna("")  # Sustituye NaN/NA por string vacío
-        df_clean = df_clean.astype(str)  # Todo como string para evitar errores JSON
+        df_clean = df_clean.fillna("")
+        df_clean = df_clean.astype(str)
 
         worksheet.clear()
         worksheet.update([df_clean.columns.values.tolist()] + df_clean.values.tolist())
         print("✅ Exportación a Google Sheets completada correctamente.")
+        print(f"🔗 Link del spreadsheet: https://docs.google.com/spreadsheets/d/{sheet.id}")
 
     except Exception as e:
         print("[❌ ERROR] Fallo inesperado en la exportación:")
