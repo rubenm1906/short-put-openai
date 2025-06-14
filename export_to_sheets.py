@@ -31,7 +31,7 @@ def export_to_google_sheets():
     creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, SCOPE)
     client = gspread.authorize(creds)
 
-    df = pd.read_csv(CSV_FILE)
+    df = pd.read_csv(CSV_FILE, on_bad_lines="skip")
 
     try:
         sheet = client.open(SPREADSHEET_NAME)
