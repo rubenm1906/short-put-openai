@@ -67,7 +67,6 @@ def run_group_analysis(group_id, group_data, global_results):
         top_contratos = rank_top_contracts(contratos_filtrados, top_n=3)
         for contract in top_contratos:
             contract["ticker"] = ticker
-            contract["grupo"] = group_id
             all_contracts.append(contract)
 
             excluido_por = motivos_exclusion_alerta(contract, thresholds)
@@ -83,14 +82,9 @@ def run_group_analysis(group_id, group_data, global_results):
                 alerted_contracts.append(contract)
 
     if all_contracts:
-        df = pd.DataFrame([c for c in all_contracts if not c.get("alerta_excluida_por")])
-        df["fecha_ejecucion"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        df = pd.DataFrame(all_contracts)
         df.to_csv(f"{storage_path}/{group_id}_resultados.csv", index=False)
         print(f"[INFO] {len(df)} contratos guardados en CSV")
-
-        consolidado_path = f"{storage_path}/consolidado_validados.csv"
-        df.to_csv(consolidado_path, mode="a", header=not os.path.exists(consolidado_path), index=False)
-        print(f"[INFO] {len(df)} contratos añadidos al consolidado.")
 
     resumen_path = f"{storage_path}/resumen_{group_id}.txt"
     with open(resumen_path, "w", encoding="utf-8") as f:
@@ -111,6 +105,7 @@ def run_group_analysis(group_id, group_data, global_results):
 def is_contract_valid(contract, filters):
     razones = []
 
+    # RA dinámica por días restantes
     if "min_rentabilidad_anual" in filters:
         ra_min = ra_dinamico_minimo(contract["days_to_expiration"])
         if contract["rentabilidad_anual"] < ra_min:
