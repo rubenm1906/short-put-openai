@@ -114,7 +114,7 @@ Top 10 Nasdap:
 
 Top 10 SP500:
   description: "SP500 Top 10"  
-  webhook: "https://discord.com/api/webhooks/1383556500466962502/8vWbZVuy5E-kTlsawaE4qGKgl0AfLKYkm5D_br1jm-0PpWBeatpqYT_4Kuuxx5_VBHYv"
+  webhook: "https://discord.com/api/webhooks/1383556673301512202/IDVIYzBVHKFPjlwWAOOC43BjlnvgJcpRD4X_f0BQTKFz-02jq1Wti33fJXsl6IVS3ldM"
   tickers:
     - AVGO
     - COST
