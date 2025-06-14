@@ -6,31 +6,32 @@ import json
 import tempfile
 import traceback
 
-# Configuración
+# Configuración de acceso
 SCOPE = [
     "https://spreadsheets.google.com/feeds",
     "https://www.googleapis.com/auth/drive"
 ]
+
 CSV_FILE = "storage/shortlist_ruben_resultados.csv"
 SPREADSHEET_NAME = "Resultados Short Put - Rubén"
 
 def export_to_google_sheets():
     print("🔍 Iniciando exportación a Google Sheets...")
+
     if not os.path.exists(CSV_FILE):
         print(f"[❌ ERROR] No se encontró el archivo CSV: {CSV_FILE}")
         return
 
     creds_content = os.environ.get("GOOGLE_SHEETS_CREDS")
     if not creds_content:
-        print("[❌ ERROR] No se encontró la variable de entorno GOOGLE_SHEETS_CREDS.")
+        print("[❌ ERROR] No se encontró la variable GOOGLE_SHEETS_CREDS.")
         return
 
     print("✅ Variable de entorno GOOGLE_SHEETS_CREDS detectada.")
-    print(f"🔐 Longitud del contenido de credenciales: {len(creds_content)}")
     try:
-        json.loads(creds_content)  # Validar formato JSON
+        json.loads(creds_content)
         print("✅ Contenido de credenciales es un JSON válido.")
-    except Exception as e:
+    except Exception:
         print("[❌ ERROR] El contenido del secreto no es un JSON válido.")
         traceback.print_exc()
         return
@@ -56,8 +57,10 @@ def export_to_google_sheets():
 
         worksheet = sheet.get_worksheet(0)
 
-        df_clean = df.replace([float("inf"), float("-inf")], None)
-        df_clean = df_clean.where(pd.notnull(df_clean), None)
+        # Limpieza y conversión segura
+        df_clean = df.replace([float("inf"), float("-inf")], pd.NA)
+        df_clean = df_clean.fillna("")  # Sustituye NaN/NA por string vacío
+        df_clean = df_clean.astype(str)  # Todo como string para evitar errores JSON
 
         worksheet.clear()
         worksheet.update([df_clean.columns.values.tolist()] + df_clean.values.tolist())
