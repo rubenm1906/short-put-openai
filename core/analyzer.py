@@ -83,7 +83,8 @@ def run_group_analysis(group_id, group_data, global_results):
                 alerted_contracts.append(contract)
 
     if all_contracts:
-        df = pd.DataFrame(all_contracts)
+        df = pd.DataFrame([c for c in all_contracts if not c.get("alerta_excluida_por")])
+        df["fecha_ejecucion"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         df.to_csv(f"{storage_path}/{group_id}_resultados.csv", index=False)
         print(f"[INFO] {len(df)} contratos guardados en CSV")
 
