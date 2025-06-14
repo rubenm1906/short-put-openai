@@ -24,7 +24,7 @@ Shortlist_ruben:
     precio_activo: null
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
-    notificar_discord: true
+    notificar_discord: false
 
 7_Magnificas:
   description: "Las 7 Magnificas"
@@ -53,7 +53,7 @@ Shortlist_ruben:
     precio_activo: null
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
-    notificar_discord: true
+    notificar_discord: false
 
 Indices:
   description: "Indices"
@@ -79,7 +79,7 @@ Indices:
     precio_activo: null
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
-    notificar_discord: true
+    notificar_discord: false
 
 Top 10 Nasdap:
   description: "Nasdaq Top 10" 
@@ -110,7 +110,7 @@ Top 10 Nasdap:
     precio_activo: null
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
-    notificar_discord: true
+    notificar_discord: false
 
 Top 10 SP500:
   description: "SP500 Top 10"  
@@ -141,7 +141,7 @@ Top 10 SP500:
     precio_activo: null
     volumen: 150                     # Asegura buena liquidez en los alertados
     open_interest: 500
-    notificar_discord: true
+    notificar_discord: false
 
 zacks_rank1:
   description: "Zacks Rank #1 Strong Buy (<150 USD)"
@@ -168,7 +168,7 @@ zacks_rank1:
     precio_activo: null
     volumen: 150
     open_interest: 500
-    notificar_discord: true
+    notificar_discord: false
 
 validea_top_nasdaq100:
   description: "Top fundamentos NASDAQ-100 (<150 USD)"
@@ -194,4 +194,4 @@ validea_top_nasdaq100:
     precio_activo: null
     volumen: 150
     open_interest: 500
-    notificar_discord: true
+    notificar_discord: false
