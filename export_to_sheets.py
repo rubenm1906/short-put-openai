@@ -12,7 +12,7 @@ SCOPE = [
 ]
 
 CSV_FILE = "storage/consolidado_validados.csv"
-SPREADSHEET_NAME = "Resultados Short Put - Rubén"
+SPREADSHEET_NAME = "Short Put Screener Consolidado"
 
 def export_to_google_sheets():
     if not os.path.exists(CSV_FILE):
