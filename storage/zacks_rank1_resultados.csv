@@ -1,3 +1,2 @@
-strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por
-59.0,1.76,57.910577148437504,1.89,135.0,746,2025-06-20,5,3.1974285230925394,895.0110947426147,57.11,3.3835222466587718,59.11,84.1,AFRM,zacks_rank1,volumen < umbral
-58.0,1.33,58.39885351562499,1.47,363.0,734,2025-06-20,5,2.4868888512941973,500.87841626008424,56.53,4.364743698189813,59.11,84.1,AFRM,zacks_rank1,
+strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
+58.0,1.33,58.39885351562499,1.47,363.0,734,2025-06-20,5,2.4868888512941973,500.87841626008424,56.53,4.364743698189813,59.11,84.1,AFRM,zacks_rank1,,2025-06-14 23:14:52

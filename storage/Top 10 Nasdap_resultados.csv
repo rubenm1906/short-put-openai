@@ -1,4 +1,2 @@
-strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por
-247.5,4.25,36.68276208496094,4.35,1650.0,1285,2025-06-20,5,1.749095295536791,254.59337345708857,243.15,2.2316043425814165,248.7,36.11,AVGO,Top 10 Nasdap,margen < umbral
-245.0,3.3,37.305314453125,3.43,2292.0,3972,2025-06-20,5,1.3791716928025735,171.80529565560173,241.57,2.866907921190187,248.7,36.11,AVGO,Top 10 Nasdap,margen < umbral
-242.5,2.53,37.695935546875,2.55,1285.0,1552,2025-06-20,5,1.025331724969843,110.57694297465392,239.95,3.518295134700442,248.7,36.11,AVGO,Top 10 Nasdap,
+strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
+242.5,2.53,37.695935546875,2.55,1285.0,1552,2025-06-20,5,1.025331724969843,110.57694297465392,239.95,3.518295134700442,248.7,36.11,AVGO,Top 10 Nasdap,,2025-06-14 23:14:52
