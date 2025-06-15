@@ -1,6 +1,0 @@
-=== Grupo: Top 10 Nasdap ===
-Descripción: Nasdaq Top 10
-Tickers analizados: AVGO, WDAY, EQT, BTSG, CF, QLYS, NVMI, PANW, MELI
-Contratos válidos encontrados: 3
-Contratos que cumplen umbrales de alerta: 1
-Última ejecución: 2025-06-15 15:27:44 UTC
