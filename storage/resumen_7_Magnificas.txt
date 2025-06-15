@@ -2,5 +2,5 @@
 Descripción: Las 7 Magnificas
 Tickers analizados: AAPL, MSFT, AMZN, GOOGL, META, TSLA, NVDA
 Contratos válidos encontrados: 6
-Contratos que cumplen umbrales de alerta: 6
-Última ejecución: 2025-06-14 23:42:21 UTC
+Contratos que cumplen umbrales de alerta: 4
+Última ejecución: 2025-06-15 13:42:58 UTC
