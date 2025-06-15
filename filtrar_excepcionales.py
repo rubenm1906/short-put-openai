@@ -39,8 +39,13 @@ df_filtrado = df[
     (df["underlying_price"] <= FILTROS["underlying_price"])
 ]
 
-# Guardar CSV local
-df_filtrado.to_csv(OUTPUT_CSV, index=False)
+print(f"[INFO] Total contratos excepcionales encontrados: {len(df_filtrado)}")
+if not df_filtrado.empty:
+    print(df_filtrado[["ticker", "strike", "bid", "rentabilidad_anual", "percent_diff"]].head())
+    df_filtrado.to_csv(OUTPUT_CSV, index=False)
+    print(f"[✅] CSV guardado en {OUTPUT_CSV}")
+else:
+    print("[⚠️] No se encontraron contratos excepcionales. No se creó el CSV.")
 
 # Subir a Google Sheets
 SCOPE = [
