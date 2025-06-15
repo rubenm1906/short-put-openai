@@ -74,8 +74,9 @@ if creds_content:
     except gspread.exceptions.WorksheetNotFound:
         worksheet = sheet.add_worksheet(title=HOJA_EXCEPCIONALES, rows="1000", cols="20")
 
-    df_clean = df_filtrado.replace([float("inf"), float("-inf")], None)
-    df_clean = df_clean.where(pd.notnull(df_clean), None)
+    # Limpieza para evitar errores JSON
+    df_clean = df_filtrado.replace([float("inf"), float("-inf")], pd.NA)
+    df_clean = df_clean.fillna("").astype(str)
 
     worksheet.clear()
     worksheet.update([df_clean.columns.values.tolist()] + df_clean.values.tolist())
