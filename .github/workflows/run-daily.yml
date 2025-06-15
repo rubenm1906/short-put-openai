@@ -46,3 +46,8 @@ jobs:
         run: python export_to_sheets.py
         env:
           GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}
+
+      - name: Filtrar contratos excepcionales y exportar a nueva hoja
+        run: python filtrar_excepcionales.py
+        env:
+          GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}
