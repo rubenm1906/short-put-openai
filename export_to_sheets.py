@@ -50,14 +50,15 @@ def export_to_google_sheets():
 
         worksheet = sheet.get_worksheet(0)
 
-        # Limpieza reforzada
+        # Limpieza robusta
         df_clean = df.replace([float("inf"), float("-inf")], pd.NA)
         df_clean = df_clean.fillna("")
         df_clean = df_clean.astype(str)
 
         worksheet.clear()
         worksheet.update([df_clean.columns.values.tolist()] + df_clean.values.tolist())
-        print("[✅] Exportación completada sin errores de JSON.")
+        print("✅ Exportación completada sin errores de JSON.")
+        print(f"🔗 Link directo: https://docs.google.com/spreadsheets/d/{sheet.id}")
 
     except Exception as e:
         print("[❌ ERROR] Fallo inesperado:")
