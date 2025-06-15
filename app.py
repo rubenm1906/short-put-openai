@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import os
@@ -6,7 +5,7 @@ import os
 st.set_page_config(page_title="Short Put Screener", layout="wide")
 
 st.title("📉 Short Put Screener Dashboard")
-st.markdown("Visualiza, filtra y exporta contratos short put detectados por grupo.")
+st.markdown("Visualiza, filtra y exporta contratos short put detectados por grupo o consolidados.")
 
 storage_path = "storage"
 if not os.path.exists(storage_path):
@@ -15,16 +14,21 @@ if not os.path.exists(storage_path):
 
 # Buscar todos los archivos _resultados.csv
 csv_files = [f for f in os.listdir(storage_path) if f.endswith("_resultados.csv")]
-if not csv_files:
-    st.warning("No hay archivos de resultados disponibles.")
-    st.stop()
+opciones = [f.replace("_resultados.csv", "") for f in csv_files]
 
-# Selección de grupo
-grupos = [f.replace("_resultados.csv", "") for f in csv_files]
-grupo_seleccionado = st.selectbox("Selecciona grupo:", grupos)
+# Agregar el consolidado si existe
+consolidado_path = os.path.join(storage_path, "consolidado_validados.csv")
+if os.path.exists(consolidado_path):
+    opciones.insert(0, "📊 Consolidado general")
 
-# Cargar datos del grupo seleccionado
-csv_path = os.path.join(storage_path, f"{grupo_seleccionado}_resultados.csv")
+grupo_seleccionado = st.selectbox("Selecciona grupo o consolidado:", opciones)
+
+# Cargar el archivo correspondiente
+if grupo_seleccionado == "📊 Consolidado general":
+    csv_path = consolidado_path
+else:
+    csv_path = os.path.join(storage_path, f"{grupo_seleccionado}_resultados.csv")
+
 df = pd.read_csv(csv_path)
 
 # Conversión segura de columnas esperadas
@@ -72,9 +76,11 @@ st.dataframe(df_filtrado, use_container_width=True)
 def convertir_csv(df):
     return df.to_csv(index=False).encode('utf-8')
 
+nombre_archivo = "consolidado_filtrado.csv" if grupo_seleccionado == "📊 Consolidado general" else f"{grupo_seleccionado}_filtrado.csv"
+
 st.download_button(
     label="📥 Descargar resultados filtrados en CSV",
     data=convertir_csv(df_filtrado),
-    file_name=f"{grupo_seleccionado}_filtrado.csv",
+    file_name=nombre_archivo,
     mime='text/csv'
 )
