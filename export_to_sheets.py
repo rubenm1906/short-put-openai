@@ -1,3 +1,4 @@
+
 import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
@@ -42,6 +43,8 @@ def export_to_google_sheets():
         try:
             sheet = client.open(SPREADSHEET_NAME)
             print(f"[INFO] Hoja encontrada: {SPREADSHEET_NAME}")
+            sheet.share("rubenmarin19@gmail.com", perm_type="user", role="writer")
+            print("📤 Hoja existente también compartida con rubenmarin19@gmail.com")
         except gspread.SpreadsheetNotFound:
             sheet = client.create(SPREADSHEET_NAME)
             print(f"[INFO] Hoja nueva creada: {SPREADSHEET_NAME}")
