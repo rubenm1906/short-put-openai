@@ -1,5 +1,3 @@
-# core/analyzer.py
-
 import os
 import pandas as pd
 from core.volatility import calculate_volatility_metrics
@@ -23,14 +21,12 @@ def rank_top_contracts(contracts, top_n=3):
         iv = c.get("implied_volatility", 0)
         hv = c.get("historical_volatility", 0)
         spread_bonus = 5 if (iv - hv) > 10 else 0
-
         return (
             c["rentabilidad_anual"] * 0.6 +
             c["percent_diff"] * 0.3 +
             (iv - hv) * 0.1 +
             spread_bonus
         )
-
     return sorted(contracts, key=compute_score, reverse=True)[:top_n]
 
 def run_group_analysis(group_id, group_data, global_results):
@@ -67,24 +63,24 @@ def run_group_analysis(group_id, group_data, global_results):
         top_contratos = rank_top_contracts(contratos_filtrados, top_n=3)
         for contract in top_contratos:
             contract["ticker"] = ticker
-            all_contracts.append(contract)
-
+            contract["grupo"] = group_id
             excluido_por = motivos_exclusion_alerta(contract, thresholds)
             contract["alerta_excluida_por"] = excluido_por
-
-            print("[VALIDO]", ticker, f"Strike: {contract['strike']}",
-                  f"Bid: {contract['bid']}",
-                  f"RA: {contract['rentabilidad_anual']:.1f}%",
-                  f"Días: {contract['days_to_expiration']}",
-                  f"Alerta: {'✅' if not excluido_por else '❌'}")
-
             if not excluido_por:
+                contract["fecha_ejecucion"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+                all_contracts.append(contract)
                 alerted_contracts.append(contract)
+                print("[VALIDO]", ticker, f"Strike: {contract['strike']}", f"Bid: {contract['bid']}",
+                      f"RA: {contract['rentabilidad_anual']:.1f}%", f"Días: {contract['days_to_expiration']}", "✅")
 
     if all_contracts:
         df = pd.DataFrame(all_contracts)
         df.to_csv(f"{storage_path}/{group_id}_resultados.csv", index=False)
-        print(f"[INFO] {len(df)} contratos guardados en CSV")
+        print(f"[INFO] {len(df)} contratos válidos guardados para {group_id}")
+
+        consolidado_path = os.path.join(storage_path, "consolidado_validados.csv")
+        df.to_csv(consolidado_path, mode="a", index=False, header=not os.path.exists(consolidado_path))
+        print(f"[INFO] {len(df)} contratos añadidos al consolidado global.")
 
     resumen_path = f"{storage_path}/resumen_{group_id}.txt"
     with open(resumen_path, "w", encoding="utf-8") as f:
@@ -97,15 +93,12 @@ def run_group_analysis(group_id, group_data, global_results):
         if len(all_contracts) == 0:
             f.write("\nSin oportunidades detectadas en esta ejecución.\n")
 
-    print(f"[INFO] Total válidos: {len(all_contracts)} | Total alertas: {len(alerted_contracts)}")
-
     if thresholds.get("notificar_discord") and alerted_contracts:
         send_discord_notification(alerted_contracts, webhook, description)
 
 def is_contract_valid(contract, filters):
     razones = []
 
-    # RA dinámica por días restantes
     if "min_rentabilidad_anual" in filters:
         ra_min = ra_dinamico_minimo(contract["days_to_expiration"])
         if contract["rentabilidad_anual"] < ra_min:
