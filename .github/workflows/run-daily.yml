@@ -54,7 +54,7 @@ jobs:
 
       - name: Commit y push resultados
         env:
-        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config user.name "shortput-bot"
           git config user.email "bot@shortput.com"
