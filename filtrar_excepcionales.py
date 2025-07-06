@@ -20,7 +20,7 @@ FILTROS = {
 # Archivos
 INPUT_CSV = "storage/consolidado_validados.csv"
 OUTPUT_CSV = "storage/consolidado_excepcionales.csv"
-SHEET_NAME = "Short Put Screener Consolidado"
+SHEET_NAME = "Short Put Screener Consolidado RUBEN"
 HOJA_EXCEPCIONALES = "Excepcionales"
 
 # Cargar y filtrar datos
