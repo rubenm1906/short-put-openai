@@ -14,7 +14,7 @@ SCOPE = [
 ]
 
 CSV_FILE = "storage/consolidado_validados.csv"
-SPREADSHEET_NAME = "Short Put Screener Consolidado"
+SPREADSHEET_NAME = "Short Put Screener Consolidado RUBEN"
 
 def export_to_google_sheets():
     print("🔍 Iniciando exportación a Google Sheets...")
