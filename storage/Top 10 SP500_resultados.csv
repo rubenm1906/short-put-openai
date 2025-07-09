@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-300.0,15.95,54.1264353027344,16.1,294.0,1140,2025-08-01,22,5.347682394167373,137.33898554762908,283.9,5.701426602228762,301.065,30.65,UNH,Top 10 SP500,,2025-07-09 16:14:31
+300.0,14.35,51.48974291992188,14.75,510.0,1140,2025-08-01,22,4.871097549094884,120.1398769434014,285.25,5.797927059029455,302.8065,30.31,UNH,Top 10 SP500,,2025-07-09 19:23:13
