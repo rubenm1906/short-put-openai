@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-105.0,4.65,50.537604003906246,5.1,1010.0,863,2025-08-15,24,4.7763989697963,103.31694677884435,99.9,6.438773121048934,106.775,34.85,FTNT,validea_top_nasdaq100,,2025-07-21 16:16:37
+105.0,4.8,52.12450219726561,4.85,1019.0,863,2025-08-15,24,4.532074942765032,96.2247997473582,100.15,6.414988553006583,107.015,34.93,FTNT,validea_top_nasdaq100,,2025-07-21 19:24:54
