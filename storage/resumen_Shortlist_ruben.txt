@@ -3,4 +3,4 @@ Descripción: Oportunidades Short Put
 Tickers analizados: PLTR, GLOB, EPAM, NFE, GLNG, ASTS
 Contratos válidos encontrados: 6
 Contratos que cumplen umbrales de alerta: 6
-Última ejecución: 2025-07-27 16:15:21 UTC
+Última ejecución: 2025-07-27 19:23:11 UTC
