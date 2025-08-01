@@ -3,6 +3,6 @@ Descripción: Zacks Rank #1 Strong Buy (<150 USD)
 Tickers analizados: AFRM, FOXA, NEM, HSTM, IRDM
 Contratos válidos encontrados: 0
 Contratos que cumplen umbrales de alerta: 0
-Última ejecución: 2025-07-31 19:25:48 UTC
+Última ejecución: 2025-08-01 13:55:18 UTC
 
 Sin oportunidades detectadas en esta ejecución.
