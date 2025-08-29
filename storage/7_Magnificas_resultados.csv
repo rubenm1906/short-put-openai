@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-330.0,4.6,38.30628100585937,4.69,9901.0,5749,2025-09-05,6,1.3934064837075428,132.05500765985866,325.31,3.349879911535024,336.5852,43.24,TSLA,7_Magnificas,,2025-08-29 16:15:49
+330.0,9.25,38.84948846435547,9.2,2537.0,4888,2025-09-12,13,2.768749247622487,115.2892658821226,320.8,3.45491753942457,332.28,44.16,TSLA,7_Magnificas,,2025-08-29 19:19:20
