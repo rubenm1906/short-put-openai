@@ -1,8 +1,6 @@
 === Grupo: zacks_rank1 ===
 Descripción: Zacks Rank #1 Strong Buy (<150 USD)
 Tickers analizados: AFRM, FOXA, NEM, HSTM, IRDM
-Contratos válidos encontrados: 0
-Contratos que cumplen umbrales de alerta: 0
-Última ejecución: 2025-09-25 13:45:37 UTC
-
-Sin oportunidades detectadas en esta ejecución.
+Contratos válidos encontrados: 2
+Contratos que cumplen umbrales de alerta: 2
+Última ejecución: 2025-09-25 16:15:41 UTC
