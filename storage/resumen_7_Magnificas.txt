@@ -1,6 +1,8 @@
 === Grupo: 7_Magnificas ===
 Descripción: Las 7 Magnificas
 Tickers analizados: AAPL, MSFT, AMZN, GOOGL, META, TSLA, NVDA
-Contratos válidos encontrados: 8
-Contratos que cumplen umbrales de alerta: 8
-Última ejecución: 2025-10-05 19:18:56 UTC
+Contratos válidos encontrados: 0
+Contratos que cumplen umbrales de alerta: 0
+Última ejecución: 2025-10-06 13:45:34 UTC
+
+Sin oportunidades detectadas en esta ejecución.
