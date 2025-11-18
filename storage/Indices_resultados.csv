@@ -1,0 +1,2 @@
+strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
+580.0,1.4,35.193519165039056,1.48,2302.0,1571,2025-11-20,1,0.2467530302272462,145.84699774836153,578.52,3.546241184414542,599.79,20.76,QQQ,Indices,,2025-11-18 19:22:23
