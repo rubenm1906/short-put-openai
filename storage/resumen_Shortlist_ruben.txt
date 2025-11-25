@@ -1,6 +1,6 @@
 === Grupo: Shortlist_ruben ===
 Descripción: Oportunidades Short Put
 Tickers analizados: PLTR, GLOB, EPAM, NFE, GLNG, ASTS
-Contratos válidos encontrados: 2
-Contratos que cumplen umbrales de alerta: 2
-Última ejecución: 2025-11-25 16:17:53 UTC
+Contratos válidos encontrados: 5
+Contratos que cumplen umbrales de alerta: 5
+Última ejecución: 2025-11-25 19:23:47 UTC
