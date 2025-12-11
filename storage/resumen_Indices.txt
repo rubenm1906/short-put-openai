@@ -3,6 +3,6 @@ Descripción: Indices
 Tickers analizados: SPY, QQQ, IWM, DIA
 Contratos válidos encontrados: 0
 Contratos que cumplen umbrales de alerta: 0
-Última ejecución: 2025-12-10 19:25:19 UTC
+Última ejecución: 2025-12-11 13:56:10 UTC
 
 Sin oportunidades detectadas en esta ejecución.
