@@ -1,6 +1,8 @@
 === Grupo: validea_top_nasdaq100 ===
 Descripción: Top fundamentos NASDAQ-100 (<150 USD)
 Tickers analizados: AMAT, CMCSA, LRCX, FTNT
-Contratos válidos encontrados: 6
-Contratos que cumplen umbrales de alerta: 6
-Última ejecución: 2026-02-01 19:31:35 UTC
+Contratos válidos encontrados: 0
+Contratos que cumplen umbrales de alerta: 0
+Última ejecución: 2026-02-02 14:11:40 UTC
+
+Sin oportunidades detectadas en esta ejecución.
