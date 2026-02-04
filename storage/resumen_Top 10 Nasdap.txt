@@ -1,6 +1,8 @@
 === Grupo: Top 10 Nasdap ===
 Descripción: Nasdaq Top 10
 Tickers analizados: AVGO, WDAY, EQT, BTSG, CF, QLYS, NVMI, PANW, MELI
-Contratos válidos encontrados: 4
-Contratos que cumplen umbrales de alerta: 4
-Última ejecución: 2026-02-03 19:48:46 UTC
+Contratos válidos encontrados: 0
+Contratos que cumplen umbrales de alerta: 0
+Última ejecución: 2026-02-04 14:12:51 UTC
+
+Sin oportunidades detectadas en esta ejecución.
