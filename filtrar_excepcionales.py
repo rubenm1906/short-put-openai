@@ -4,7 +4,13 @@ from oauth2client.service_account import ServiceAccountCredentials
 import os
 import tempfile
 
-# Parámetros de filtro
+# --- CONFIGURACIÓN ---
+# PEGA AQUÍ EL ID DE TU NUEVA HOJA (el que está en la URL entre /d/ y /edit)
+SPREADSHEET_ID = '1u_fEtdfBeJMnt0RvkQvLzJ7_ZEylb7mKmIVTcKKlwHE' 
+HOJA_EXCEPCIONALES = "Excepcionales"
+INPUT_CSV = "storage/consolidado_validados.csv"
+OUTPUT_CSV = "storage/consolidado_excepcionales.csv"
+
 FILTROS = {
     "rentabilidad_anual": 55,
     "percent_diff": 8,
@@ -17,13 +23,7 @@ FILTROS = {
     "underlying_price": 150
 }
 
-# Archivos
-INPUT_CSV = "storage/consolidado_validados.csv"
-OUTPUT_CSV = "storage/consolidado_excepcionales.csv"
-SHEET_NAME = "Short Put Screener Consolidado RUBEN"
-HOJA_EXCEPCIONALES = "Excepcionales"
-
-# Cargar y filtrar datos
+# --- PROCESAMIENTO ---
 df = pd.read_csv(INPUT_CSV)
 df["iv_minus_hv"] = df["implied_volatility"] - df["historical_volatility"]
 
@@ -40,18 +40,13 @@ df_filtrado = df[
 ]
 
 print(f"[INFO] Total contratos excepcionales encontrados: {len(df_filtrado)}")
-if not df_filtrado.empty:
-    print(df_filtrado[["ticker", "strike", "bid", "rentabilidad_anual", "percent_diff"]].head())
-    df_filtrado.to_csv(OUTPUT_CSV, index=False)
-    print(f"[✅] CSV guardado en {OUTPUT_CSV}")
-else:
-    print("[⚠️] No se encontraron contratos excepcionales. No se creó el CSV.")
 
-# Subir a Google Sheets
-SCOPE = [
-    "https://spreadsheets.google.com/feeds",
-    "https://www.googleapis.com/auth/drive"
-]
+if not df_filtrado.empty:
+    df_filtrado.to_csv(OUTPUT_CSV, index=False)
+    print(f"[✅] CSV guardado localmente.")
+
+# --- CONEXIÓN A GOOGLE SHEETS ---
+SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 creds_content = os.environ.get("GOOGLE_SHEETS_CREDS")
 
 if creds_content:
@@ -63,24 +58,23 @@ if creds_content:
     client = gspread.authorize(creds)
 
     try:
-        sheet = client.open(SHEET_NAME)
-        print(f"[INFO] Hoja encontrada: {SHEET_NAME}")
-    except gspread.SpreadsheetNotFound:
-        sheet = client.create(SHEET_NAME)
-        print(f"[INFO] Hoja nueva creada: {SHEET_NAME}")
+        # ABRIR POR ID: Esto usa tu espacio personal (2TB) y no el de la cuenta de servicio
+        sheet = client.open_by_key(SPREADSHEET_ID)
+        print(f"[INFO] Conexión exitosa al ID: {SPREADSHEET_ID}")
+        
+        try:
+            worksheet = sheet.worksheet(HOJA_EXCEPCIONALES)
+        except gspread.exceptions.WorksheetNotFound:
+            worksheet = sheet.add_worksheet(title=HOJA_EXCEPCIONALES, rows="1000", cols="20")
 
-    try:
-        worksheet = sheet.worksheet(HOJA_EXCEPCIONALES)
-    except gspread.exceptions.WorksheetNotFound:
-        worksheet = sheet.add_worksheet(title=HOJA_EXCEPCIONALES, rows="1000", cols="20")
+        # Limpieza de datos
+        df_clean = df_filtrado.replace([float("inf"), float("-inf")], pd.NA).fillna("").astype(str)
 
-    # Limpieza para evitar errores JSON
-    df_clean = df_filtrado.replace([float("inf"), float("-inf")], pd.NA)
-    df_clean = df_clean.fillna("").astype(str)
+        worksheet.clear()
+        worksheet.update([df_clean.columns.values.tolist()] + df_clean.values.tolist())
+        print(f"[✅] {len(df_clean)} contratos exportados correctamente.")
 
-    worksheet.clear()
-    worksheet.update([df_clean.columns.values.tolist()] + df_clean.values.tolist())
-
-    print(f"[✅] {len(df_clean)} contratos excepcionales exportados a Google Sheets.")
+    except Exception as e:
+        print(f"[❌ ERROR] No se pudo acceder a la hoja. Revisa el ID y los permisos: {e}")
 else:
-    print("[⚠️] GOOGLE_SHEETS_CREDS no está definido. Solo se generó el CSV local.")
+    print("[⚠️] GOOGLE_SHEETS_CREDS no definido.")
