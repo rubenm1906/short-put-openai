@@ -1,6 +1,6 @@
 Shortlist_ruben:
   description: "Oportunidades Short Put" 
-  webhook: "https://discord.com/api/webhooks/1391511807331532801/M4siTkNRGFPTdqXuNACjF8Bt4gtR5wzDK6sfPYJSe9Yj8YLaBSC8aweP9ZrKpAXHFn77"
+  webhook: "https://discord.com/api/webhooks/1469815111584841848/uaQtcK3-tJX2nVKz1-e3EA-dXFkxY7rBGcqMsum9YCquKLcXVqbI_HTz0C8RY0ezRPul"
   tickers:
     - PLTR
     - GLOB
@@ -28,7 +28,7 @@ Shortlist_ruben:
 
 7_Magnificas:
   description: "Las 7 Magnificas"
-  webhook: "https://discord.com/api/webhooks/1391511993201987704/GS9KL0sK6Jv0EZ4a7c1oK8X2CxiQLw5Gyjjhhjsa6krl4jLAc2oJx5pPhwDIaRsoYsk6"
+  webhook: "https://discord.com/api/webhooks/1469815376094171389/ZL3NwDbyPpNZPl2OLKrjDO2TGDBs8iNCW3yejIBk0g4Q5soJMcMbr2_5JNU5GyEKuoqs"
   tickers:
     - AAPL
     - MSFT
@@ -57,7 +57,7 @@ Shortlist_ruben:
 
 Indices:
   description: "Indices" 
-  webhook: "https://discord.com/api/webhooks/1391512132402679889/0elrnTu7-e7RF7uDMMf2fa2DPy8LYtTVDKpVBoHmET2dnsHcUBvFDSr_WU3wm8flgmD-"
+  webhook: "https://discord.com/api/webhooks/1469815505194975495/2TjXSR5YOzIW9nNvNhwleUNBO338Y2_ZNphEftoKBlyZZd-vCKjKpreGfHqZ-O73_qpM"
   tickers:
     - SPY
     - QQQ
@@ -83,7 +83,7 @@ Indices:
 
 Top 10 Nasdap:
   description: "Nasdaq Top 10" 
-  webhook: "https://discord.com/api/webhooks/1391512338049531994/nAn-rtoLjE-JOIHVDTkHFnYc4qa_tICms2YA42XwQDzlaYCIMS8e8czLTkUYBSXehQNn"
+  webhook: "https://discord.com/api/webhooks/1469815604323029248/bdkQ416PyMGxrAsxxKfZLW1wHAKNNxQkQl-JjFPkYCFbQhIEgPhYTLEPnMDlteIcgOAK"
   tickers:
     - AVGO
     - WDAY
@@ -114,7 +114,7 @@ Top 10 Nasdap:
 
 Top 10 SP500:
   description: "SP500 Top 10"  
-  webhook: "https://discord.com/api/webhooks/1391512471554232470/BAig30HxULavfp_Q2qjHX0ZafJ_7OPegbpTC9BCGrcz1aNfkXk8z4uu7voUSRiYDZ8_H"
+  webhook: "https://discord.com/api/webhooks/1469815710652825689/DLv6jSNzWHYUkeoq7K-fj7_9oi8o9lICX004MAQFcW0C8xUejXmaP8oT1sGM9B5FCx6b"
   tickers:
     - AVGO
     - COST
@@ -145,7 +145,7 @@ Top 10 SP500:
 
 zacks_rank1:
   description: "Zacks Rank #1 Strong Buy (<150 USD)"
-  webhook: "https://discord.com/api/webhooks/1391512619470557204/oOvHdAwaffEKuBdvTKCOcZ15H_TaMd0V8JT8sq2nawIR1LU_JQfm8M3Uifn0CWgl8B59"  # agrega tu webhook para alertas
+  webhook: "https://discord.com/api/webhooks/1469815845755555921/xiUCV2ludCt2UrxculE2wyJkfX0wm_vtYbDBiQbO6MVtwrKSlnAIZV71JwIdk1Tez6eq"  # agrega tu webhook para alertas
   tickers:
     - AFRM   # Affirm – Fintech, EPS positivo y revisiones al alza
     - FOXA   # Fox Corporation – Zacks Rank 1, sorpresa de EPS +24%
@@ -172,7 +172,7 @@ zacks_rank1:
 
 validea_top_nasdaq100:
   description: "Top fundamentos NASDAQ-100 (<150 USD)"
-  webhook: "https://discord.com/api/webhooks/1391513099349004380/UCoIBMlyEiKvXG0Wt90_gfMzLagG6KLWaZkMZk7WE7CN_r7kpgTzXX1FIbsBDTsJMcFI"  # agrega tu webhook si quieres alertas 
+  webhook: "https://discord.com/api/webhooks/1469815947047993388/eHnqvSyytapIV1NeZndUMc4796nIXNF8coln4yDYyUbI9t-XBA5oQ6OrzgLE51Lhn2Kx"  # agrega tu webhook si quieres alertas 
   tickers:
     - AMAT  # Applied Materials – P/E ~20, FCF y EPS estables
     - CMCSA # Comcast – P/E ~8.5, flujo fuerte
