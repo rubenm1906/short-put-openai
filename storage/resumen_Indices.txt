@@ -1,6 +1,8 @@
 === Grupo: Indices ===
 Descripción: Indices
 Tickers analizados: SPY, QQQ, IWM, DIA
-Contratos válidos encontrados: 1
-Contratos que cumplen umbrales de alerta: 1
-Última ejecución: 2026-02-23 16:45:13 UTC
+Contratos válidos encontrados: 0
+Contratos que cumplen umbrales de alerta: 0
+Última ejecución: 2026-02-23 20:00:23 UTC
+
+Sin oportunidades detectadas en esta ejecución.
