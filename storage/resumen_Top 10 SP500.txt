@@ -1,6 +1,6 @@
 === Grupo: Top 10 SP500 ===
 Descripción: SP500 Top 10
 Tickers analizados: AVGO, COST, JPM, LLY, PG, TMO, UNH, HD, V
-Contratos válidos encontrados: 12
-Contratos que cumplen umbrales de alerta: 12
-Última ejecución: 2026-03-09 19:43:58 UTC
+Contratos válidos encontrados: 4
+Contratos que cumplen umbrales de alerta: 4
+Última ejecución: 2026-03-10 14:12:42 UTC
