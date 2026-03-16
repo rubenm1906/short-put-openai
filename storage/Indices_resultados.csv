@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-241.0,1.14,35.30338134765625,1.12,660.0,52061,2026-03-20,3,0.4491138022295293,72.49506241140725,239.88,3.8094474296254712,249.38,21.42,IWM,Indices,,2026-03-16 14:43:05
+242.0,1.17,36.304347900390624,1.18,1385.0,1227,2026-03-19,2,0.47361027493477825,136.85984120391916,240.82,3.3433674493277192,249.15,21.38,IWM,Indices,,2026-03-16 19:54:55
