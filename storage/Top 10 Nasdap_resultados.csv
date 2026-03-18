@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-307.5,1.24,41.57773266601562,1.31,266,1258,2026-03-20,1,0.4128715055627344,349.910543199769,306.19,3.4983768791956957,317.29,39.24,AVGO,Top 10 Nasdap,,2026-03-18 16:52:44
+307.5,1.7,47.583531982421874,1.76,485,1258,2026-03-20,1,0.5553802461344273,654.9863566255248,305.74,3.5216156516251083,316.9,39.27,AVGO,Top 10 Nasdap,,2026-03-18 19:52:03
