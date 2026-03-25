@@ -3,4 +3,4 @@ Descripción: Top fundamentos NASDAQ-100 (<150 USD)
 Tickers analizados: AMAT, CMCSA, LRCX, FTNT
 Contratos válidos encontrados: 1
 Contratos que cumplen umbrales de alerta: 1
-Última ejecución: 2026-03-24 19:55:44 UTC
+Última ejecución: 2026-03-25 14:39:45 UTC
