@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-115.0,1.07,56.61664477539063,1.25,187.0,2875,2026-04-17,4,1.0339123242349049,155.64029111788264,113.75,5.91397849462366,120.9,49.61,NEM,zacks_rank1,,2026-04-12 19:42:53
+115.0,5.05,51.050294189453126,5.1,312,2397,2026-05-15,30,4.297269969666329,66.84791298683632,109.9,7.398045163464779,118.68,45.14,NEM,zacks_rank1,,2026-04-14 14:59:34
