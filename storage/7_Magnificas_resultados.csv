@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-200.0,1.21,46.16753051757813,1.21,27040.0,10004,2026-05-08,1,0.5876068376068376,748.6597387729324,198.79,3.4625097125097106,205.92,39.09,NVDA,7_Magnificas,,2026-05-06 15:40:10
+200.0,1.17,43.50642431640625,1.2,37941.0,10004,2026-05-08,1,0.5842261851149879,738.312399588476,198.8,3.2131953326170026,205.3999,38.84,NVDA,7_Magnificas,,2026-05-06 17:23:44
