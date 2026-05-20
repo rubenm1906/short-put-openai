@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-405.0,2.32,50.098155273437506,2.61,375.0,1776,2026-05-22,1,0.6234475022567127,866.507811761553,402.39,3.881593703801292,418.6399,41.23,AVGO,Top 10 SP500,,2026-05-20 16:34:23
+410.0,4.05,52.6371923828125,4.55,516.0,1824,2026-05-22,1,1.0871902702444387,5077.090878854738,405.45,3.1205944899763454,418.51,41.22,AVGO,Top 10 SP500,,2026-05-20 18:10:34
