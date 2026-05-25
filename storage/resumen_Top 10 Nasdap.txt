@@ -3,4 +3,4 @@ Descripción: Nasdaq Top 10
 Tickers analizados: AVGO, WDAY, EQT, BTSG, CF, QLYS, NVMI, PANW, MELI
 Contratos válidos encontrados: 4
 Contratos que cumplen umbrales de alerta: 4
-Última ejecución: 2026-05-25 16:06:14 UTC
+Última ejecución: 2026-05-25 17:28:37 UTC
