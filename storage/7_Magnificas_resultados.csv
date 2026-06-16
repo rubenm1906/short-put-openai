@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-580.0,1.35,35.86489916992188,1.44,3103.0,5089,2026-06-18,1,0.24002400240024,139.89661600252683,578.56,3.5636897023035816,599.94,35.09,META,7_Magnificas,,2026-06-16 19:28:30
+580.0,1.25,35.68179553222656,1.38,3212.0,5089,2026-06-18,1,0.2299195281651422,131.2300703604367,578.62,3.5970743573082804,600.21,35.1,META,7_Magnificas,,2026-06-16 21:44:26
