@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-360.0,13.5,50.41248318481445,13.5,398.0,873,2026-10-16,24,3.6313750806972243,72.02685849287577,346.5,6.794706262104581,371.76,68.73,PANW,Top 10 Nasdap,,2026-09-21 20:12:57
+360.0,13.1,49.88453436279296,13.5,398.0,873,2026-10-16,24,3.6313750806972243,72.02685849287577,346.5,6.794706262104581,371.76,68.73,PANW,Top 10 Nasdap,,2026-09-21 22:33:30
