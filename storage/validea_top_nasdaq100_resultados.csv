@@ -1,2 +1,2 @@
 strike,bid,implied_volatility,last_price,volume,open_interest,expiration,days_to_expiration,rentabilidad_diaria,rentabilidad_anual,break_even,percent_diff,underlying_price,historical_volatility,ticker,grupo,alerta_excluida_por,fecha_ejecucion
-250.0,4.45,67.95686340332033,4.94,381.0,1782,2026-10-23,6,1.873483009708738,209.30498106491595,245.06,7.061589805825244,263.68,54.61,LRCX,validea_top_nasdaq100,,2026-10-16 19:09:20
+250.0,4.8,71.16728051757812,5.3,412.0,1782,2026-10-23,6,2.0080321285140563,235.1640883963054,244.7,7.289535500492541,263.94,54.54,LRCX,validea_top_nasdaq100,,2026-10-16 21:59:57
